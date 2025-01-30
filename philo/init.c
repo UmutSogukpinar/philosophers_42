@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:43:46 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/29 18:00:04 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/01/30 21:42:43 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ t_bool	add_phil(t_philo **table, t_data *data, int id)
 
 	new = init_a_phil(id, data);
 	if (!new)
+	{
+		free_table(table);
 		return (c_false);
+	}
 	table[id - 1] = new;
 	update_table(table, id - 1);
 	return (c_true);

@@ -6,7 +6,7 @@
 /*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:36 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/30 21:35:14 by umut             ###   ########.fr       */
+/*   Updated: 2025/01/30 21:39:54 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_bool	process(int arg_num, char **args, t_data *data)
 	int		i;
 
 	phil_num = ft_atoi(args[1]);
-	if (phil_num == 0)
+	if (phil_num <= 0)
 		return (c_false);
 	table = malloc(sizeof(t_philo *) * (phil_num + 1));
 	if (!table)
