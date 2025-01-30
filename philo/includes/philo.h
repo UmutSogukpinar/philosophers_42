@@ -6,7 +6,7 @@
 /*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:41 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/30 21:58:23 by umut             ###   ########.fr       */
+/*   Updated: 2025/01/30 22:12:13 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_data		*init_data(int arg_num, char **args);
 t_bool  process_second_part(t_philo **table);
 
 int			ft_atoi(const char *str);
+
 void	display_philos(t_philo **philos);
 
 #endif
