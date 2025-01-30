@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:41 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/29 18:36:51 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/01/30 21:58:23 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define TRUE 1
 # define FALSE 0
+
+#include "pthread.h"
 
 typedef enum e_bool
 {
@@ -44,6 +46,7 @@ typedef struct s_philo
 	t_data	*data;
 	t_fork	*left_fork;
 	t_fork	*right_fork;
+	pthread_t   thread;
 
 }			t_philo;
 
@@ -51,7 +54,9 @@ void		custom_free(void **ptr);
 void		free_table(t_philo **table);
 t_bool		add_phil(t_philo **table, t_data *data, int id);
 t_data		*init_data(int arg_num, char **args);
+t_bool  process_second_part(t_philo **table);
 
 int			ft_atoi(const char *str);
+void	display_philos(t_philo **philos);
 
 #endif

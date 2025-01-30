@@ -6,7 +6,7 @@
 /*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:36 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/30 21:39:54 by umut             ###   ########.fr       */
+/*   Updated: 2025/01/30 21:50:39 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ t_bool	process(int arg_num, char **args, t_data *data)
 	while (++i <= phil_num)
 		if (!(add_phil(table, data, i)))
 			return (c_false);
-	display_philos(table);
-	free_table(table);
-	return (c_true);
+	if (process_second_part(table))
+		return (c_true);
+	else
+		return (c_false);
 }
