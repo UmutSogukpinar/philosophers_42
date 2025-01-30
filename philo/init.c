@@ -6,7 +6,7 @@
 /*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:43:46 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/30 22:13:07 by umut             ###   ########.fr       */
+/*   Updated: 2025/01/30 23:32:46 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static t_fork	*init_a_fork(int id)
 		return (NULL);
 	new->id = id;
 	new->is_free = c_true;
+	pthread_mutex_init(&(new->mutex), NULL);
 	return (new);
 }
 

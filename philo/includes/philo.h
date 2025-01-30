@@ -6,7 +6,7 @@
 /*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:41 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/30 22:12:13 by umut             ###   ########.fr       */
+/*   Updated: 2025/01/30 23:29:48 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_fork
 {
 	int		id;
 	t_bool	is_free;
+	pthread_mutex_t mutex;
 
 }			t_fork;
 
