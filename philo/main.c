@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:36 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/29 18:56:23 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/01/30 21:35:14 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,17 @@ t_bool	process(int arg_num, char **args, t_data *data)
 	phil_num = ft_atoi(args[1]);
 	if (phil_num == 0)
 		return (c_false);
-	i = 0;
 	table = malloc(sizeof(t_philo *) * (phil_num + 1));
 	if (!table)
 		return (c_false);
+	i = -1;
+	while (++i < phil_num)
+		table[i] = NULL;
+	table[phil_num] = NULL;
+	i = 0;
 	while (++i <= phil_num)
 		if (!(add_phil(table, data, i)))
 			return (c_false);
-	table[phil_num] = NULL;
 	display_philos(table);
 	free_table(table);
 	return (c_true);
