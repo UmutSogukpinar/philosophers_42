@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:36 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/31 19:27:46 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/01 00:13:05 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-t_bool	process(int arg_num, char **args, t_data *data);
+t_bool	process(char **args, t_data *data);
 
 #include <stdio.h>
 
@@ -53,7 +53,7 @@ int	main(int arg_num, char **args)
 	data = init_data(arg_num, args);
 	if (!data)
 		return (1);
-	if (process(arg_num, args, data))
+	if (process(args, data))
 	{
 		custom_free((void **)&(data));
 		return (1);
@@ -62,7 +62,7 @@ int	main(int arg_num, char **args)
 	return (0);
 }
 
-t_bool	process(int arg_num, char **args, t_data *data)
+t_bool	process(char **args, t_data *data)
 {
 	t_philo	**table;
 	int		phil_num;

@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:25:42 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/31 19:00:15 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/01 00:59:14 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philo.h"
+#include "sys/time.h"
 
 int	ft_atoi(const char *str)
 {
@@ -38,4 +41,17 @@ int	ft_atoi(const char *str)
 long	to_ms(long seconds, long microseconds)
 {
 	return ((seconds * 1000) + (microseconds / 1000));
+}
+
+t_bool	get_time(long *time)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) == 0)
+	{
+		*time = to_ms(tv.tv_sec, tv.tv_sec);
+		return (c_true);
+	}
+	printf("gettimeofday error\n");
+	return (c_false);
 }

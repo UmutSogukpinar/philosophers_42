@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:41 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/31 19:00:26 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/01 01:07:40 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,13 @@ t_bool		add_phil(t_philo **table, t_data *data, int id);
 t_data		*init_data(int arg_num, char **args);
 t_bool		process_second_part(t_philo **table);
 
+t_bool		lock_fork(t_fork *fork);
+void		unlock_fork(t_fork *fork);
+void		unlock_both_fork(t_fork *left_fork, t_fork *right_fork);
+
 int			ft_atoi(const char *str);
 long		to_ms(long seconds, long microseconds);
+t_bool		get_time(long *time);
 
 void		display_philos(t_philo **philos);
 
