@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:36 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/30 21:50:39 by umut             ###   ########.fr       */
+/*   Updated: 2025/01/31 19:27:46 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,51 +16,33 @@
 
 t_bool	process(int arg_num, char **args, t_data *data);
 
-void	display_philos(t_philo **philos)
+#include <stdio.h>
+
+void	display_philos(t_philo **table)
 {
-	if (!philos)
+	int	i;
+
+	if (!table)
 	{
-		printf("Philosopher array is NULL\n");
-		return ;
+		printf("Table is empty or NULL.\n");
+		return;
 	}
-	printf("=== Philosophers Information ===\n");
-	for (int i = 0; philos[i] != NULL; i++)
+	i = 0;
+	while (table[i])
 	{
-		printf("Philosopher ID: %d\n", philos[i]->id);
-		if (philos[i]->data)
-		{
-			printf("  Time to Die: %d ms\n", philos[i]->data->time_to_die);
-			printf("  Time to Eat: %d ms\n", philos[i]->data->time_to_eat);
-			printf("  Time to Sleep: %d ms\n", philos[i]->data->time_to_sleep);
-			printf("  Eat Limit: %d\n", philos[i]->data->eat_limit);
-		}
-		else
-		{
-			printf("  Data: NULL\n");
-		}
-		if (philos[i]->left_fork)
-		{
-			printf("  Left Fork ID: %d (Is Free: %s)\n",
-				philos[i]->left_fork->id,
-				philos[i]->left_fork->is_free == c_true ? "Yes" : "No");
-		}
-		else
-		{
-			printf("  Left Fork: NULL\n");
-		}
-		if (philos[i]->right_fork)
-		{
-			printf("  Right Fork ID: %d (Is Free: %s)\n",
-				philos[i]->right_fork->id,
-				philos[i]->right_fork->is_free == c_true ? "Yes" : "No");
-		}
-		else
-		{
-			printf("  Right Fork: NULL\n");
-		}
-		printf("-------------------------\n");
+		printf("Philosopher %d:\n", table[i]->id);
+		printf("  Starvation: %d\n", table[i]->starvation);
+		printf("  Left Fork ID: %d | Status: %s\n",
+			table[i]->left_fork->id,
+			table[i]->left_fork->is_free ? "Free" : "Taken");
+		printf("  Right Fork ID: %d | Status: %s\n",
+			table[i]->right_fork->id,
+			table[i]->right_fork->is_free ? "Free" : "Taken");
+		printf("------------------------------------------------\n");
+		i++;
 	}
 }
+
 
 int	main(int arg_num, char **args)
 {

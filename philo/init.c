@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:43:46 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/30 23:32:46 by umut             ###   ########.fr       */
+/*   Updated: 2025/01/31 13:44:50 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static t_philo	*init_a_phil(int id, t_data *data)
 		free(new);
 		return (NULL);
 	}
+	new->starvation = data->time_to_die;
 	return (new);
 }
 

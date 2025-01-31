@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:25:42 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/29 14:27:23 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/01/31 19:00:15 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,9 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (sign * acc);
+}
+
+long	to_ms(long seconds, long microseconds)
+{
+	return ((seconds * 1000) + (microseconds / 1000));
 }

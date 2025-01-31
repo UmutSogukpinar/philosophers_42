@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:56:40 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/29 18:55:30 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:37:29 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-t_bool static check_datas(t_data *data);
+static t_bool	check_datas(t_data *data);
 
 t_data	*init_data(int arg_num, char **args)
 {
@@ -41,7 +41,7 @@ t_data	*init_data(int arg_num, char **args)
 	return (new);
 }
 
-t_bool static check_datas(t_data *data)
+static t_bool	check_datas(t_data *data)
 {
 	if (data->time_to_die == 0 || data->time_to_eat == 0
 		|| data->time_to_sleep == 0 || data->eat_limit == 0)

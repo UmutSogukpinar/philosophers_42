@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:41 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/30 23:29:48 by umut             ###   ########.fr       */
+/*   Updated: 2025/01/31 19:00:26 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define TRUE 1
 # define FALSE 0
 
-#include "pthread.h"
+# include "pthread.h"
 
 typedef enum e_bool
 {
@@ -26,9 +26,9 @@ typedef enum e_bool
 
 typedef struct s_fork
 {
-	int		id;
-	t_bool	is_free;
-	pthread_mutex_t mutex;
+	int				id;
+	t_bool			is_free;
+	pthread_mutex_t	mutex;
 
 }			t_fork;
 
@@ -43,11 +43,12 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int		id;
-	t_data	*data;
-	t_fork	*left_fork;
-	t_fork	*right_fork;
-	pthread_t   thread;
+	int			id;
+	int			starvation;
+	t_data		*data;
+	t_fork		*left_fork;
+	t_fork		*right_fork;
+	pthread_t	thread;
 
 }			t_philo;
 
@@ -55,10 +56,11 @@ void		custom_free(void **ptr);
 void		free_table(t_philo **table);
 t_bool		add_phil(t_philo **table, t_data *data, int id);
 t_data		*init_data(int arg_num, char **args);
-t_bool  process_second_part(t_philo **table);
+t_bool		process_second_part(t_philo **table);
 
 int			ft_atoi(const char *str);
+long		to_ms(long seconds, long microseconds);
 
-void	display_philos(t_philo **philos);
+void		display_philos(t_philo **philos);
 
 #endif
