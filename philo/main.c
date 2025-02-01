@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:51:36 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/01 00:13:05 by umut             ###   ########.fr       */
+/*   Updated: 2025/02/01 12:45:33 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-t_bool	process(char **args, t_data *data);
+static t_bool	process(char **args, t_data *data, t_bool *death);
 
 #include <stdio.h>
 
@@ -47,22 +47,31 @@ void	display_philos(t_philo **table)
 int	main(int arg_num, char **args)
 {
 	t_data	*data;
+	t_bool	*death;
 
 	if (!(arg_num == 5 || arg_num == 6))
 		return (0);
 	data = init_data(arg_num, args);
 	if (!data)
 		return (1);
-	if (process(args, data))
+	death = init_death();
+	if (!death)
 	{
 		custom_free((void **)&(data));
 		return (1);
 	}
+	if (process(args, data, death))
+	{
+		custom_free((void **)&(data));
+		custom_free((void **)&(death));
+		return (1);
+	}
 	custom_free((void **)&(data));
+	custom_free((void **)&(death));
 	return (0);
 }
 
-t_bool	process(char **args, t_data *data)
+static t_bool	process(char **args, t_data *data, t_bool *death)
 {
 	t_philo	**table;
 	int		phil_num;
@@ -80,7 +89,7 @@ t_bool	process(char **args, t_data *data)
 	table[phil_num] = NULL;
 	i = 0;
 	while (++i <= phil_num)
-		if (!(add_phil(table, data, i)))
+		if (!(add_phil(table, data, death, i)))
 			return (c_false);
 	if (process_second_part(table))
 		return (c_true);

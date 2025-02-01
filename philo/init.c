@@ -6,22 +6,22 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 12:43:46 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/31 13:44:50 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/01 13:39:21 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/philo.h"
 #include "stdlib.h"
 
-static t_philo	*init_a_phil(int id, t_data *data);
+static t_philo	*init_a_phil(int id, t_data *data, t_bool *death);
 static t_fork	*init_a_fork(int id);
 static void		update_table(t_philo **table, int index);
 
-t_bool	add_phil(t_philo **table, t_data *data, int id)
+t_bool	add_phil(t_philo **table, t_data *data, t_bool *death, int id)
 {
 	t_philo	*new;
 
-	new = init_a_phil(id, data);
+	new = init_a_phil(id, data, death);
 	if (!new)
 	{
 		free_table(table);
@@ -32,7 +32,7 @@ t_bool	add_phil(t_philo **table, t_data *data, int id)
 	return (c_true);
 }
 
-static t_philo	*init_a_phil(int id, t_data *data)
+static t_philo	*init_a_phil(int id, t_data *data, t_bool *death)
 {
 	t_philo	*new;
 
@@ -48,6 +48,7 @@ static t_philo	*init_a_phil(int id, t_data *data)
 		free(new);
 		return (NULL);
 	}
+	new->death = death;
 	new->starvation = data->time_to_die;
 	return (new);
 }

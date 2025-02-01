@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:56:40 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/01/31 13:37:29 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/01 12:42:15 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_data	*init_data(int arg_num, char **args)
 	new = malloc(sizeof(t_data));
 	if (!new)
 		return (NULL);
+	new->number_of_phils = ft_atoi(args[1]);
 	new->time_to_die = ft_atoi(args[2]);
 	new->time_to_eat = ft_atoi(args[3]);
 	new->time_to_sleep = ft_atoi(args[4]);
@@ -39,6 +40,17 @@ t_data	*init_data(int arg_num, char **args)
 		return (NULL);
 	}
 	return (new);
+}
+
+t_bool	*init_death()
+{
+	t_bool	*death;
+
+	death = malloc(sizeof(t_bool));
+	if (!death)
+		return (NULL);
+	*death = c_false;
+	return (death);
 }
 
 static t_bool	check_datas(t_data *data)

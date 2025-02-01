@@ -11,8 +11,10 @@ SRCS =	$(PHIL_DIR)/main.c \
 		$(PHIL_DIR)/init.c \
 		$(PHIL_DIR)/init_two.c \
 		$(PHIL_DIR)/process.c \
+		$(PHIL_DIR)/process_two.c \
 		$(PHIL_DIR)/mutex.c \
 		$(PHIL_DIR)/utils.c \
+		$(PHIL_DIR)/utils_two.c \
 
 OBJS = $(SRCS:.c=.o)
 
