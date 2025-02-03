@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/02 19:36:01 by umut              #+#    #+#             */
-/*   Updated: 2025/02/02 23:22:43 by umut             ###   ########.fr       */
+/*   Created: 2025/02/03 11:21:01 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/03 11:29:58 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_bool	free_fork(t_fork *fork)
 	{
 		if (pthread_mutex_destroy(&(fork->lock.lock)) != 0)
 		{
-			printf(MUTEX_DSTRY_ERR);
+			printf(M_DSTRY_ERR);
 			printf("Error on \033[1;31m\"free_fork()\"\033[0m function\n");
 			free(fork);
 			return (c_false);
@@ -70,5 +70,3 @@ static t_bool	free_fork(t_fork *fork)
 	}
 	return (c_true);
 }
-
-

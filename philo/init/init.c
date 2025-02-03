@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/02 19:07:39 by umut              #+#    #+#             */
-/*   Updated: 2025/02/02 23:14:22 by umut             ###   ########.fr       */
+/*   Created: 2025/02/03 11:21:23 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/03 15:46:45 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_data	*init_data(int argn, char **args)
 	return (new);
 }
 
-t_death	*init_death()
+t_death	*init_death(void)
 {
 	t_death	*new;
 
@@ -49,7 +49,7 @@ t_death	*init_death()
 		printf("Error on \033[1;31m\"init_death()\"\033[0m function\n");
 		return (NULL);
 	}
-	new->death = c_false;
+	new->does_exist = c_false;
 	if (pthread_mutex_init(&(new->lock.lock), NULL) != 0)
 	{
 		free(new);
@@ -58,36 +58,4 @@ t_death	*init_death()
 		return (NULL);
 	}
 	return (new);
-}
-t_lock	*init_lock()
-{
-	t_lock	*new;
-
-	new = malloc(sizeof(t_lock));
-	if (!new)
-	{
-		printf(ALLOC_ERR);
-		printf("Error on \033[1;31m\"init_lock()\"\033[0m function\n");
-		return (NULL);
-	}
-	if (pthread_mutex_init(&(new->lock), NULL) != 0)
-	{
-		printf(MUTEX_INIT_ERR);
-		printf("Error on \033[1;31m\"init_lock()\"\033[0m function\n");
-		free(new);
-		return (NULL);
-	}
-	return (new);
-}
-
-void	set_lock(t_philo **table, t_lock *lock)
-{
-	int	i;
-
-	i = 0;
-	while (table[i])
-	{
-		table[i]->lock = lock;
-		i++;
-	}
 }

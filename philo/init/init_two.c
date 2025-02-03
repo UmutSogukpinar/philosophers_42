@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_two.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/02 20:04:19 by umut              #+#    #+#             */
-/*   Updated: 2025/02/02 23:16:04 by umut             ###   ########.fr       */
+/*   Created: 2025/02/03 11:21:15 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/03 17:44:14 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 #include "stdlib.h"
 
 static t_philo	*init_a_phil(int id, t_data *data, t_death *death);
+static t_philo	*init_a_phil_two(t_philo *new, int id, t_data *data,
+					t_death *death);
 static t_fork	*init_a_fork(int id);
-static void	set_forks(t_philo **table, int index);
+static void		set_forks(t_philo **table, int index);
 
 t_bool	add_phil(t_philo **table, t_data *data, t_death *death, int id)
 {
@@ -52,13 +54,24 @@ static t_philo	*init_a_phil(int id, t_data *data, t_death *death)
 		printf("Error on \033[1;31m\"init_a_phil()\"\033[0m function\n");
 		return (NULL);
 	}
+	return (init_a_phil_two(new, id, data, death));
+}
+
+static t_philo	*init_a_phil_two(t_philo *new, int id, t_data *data,
+		t_death *death)
+{
+	int	initial_eaten_amount;
+
+	initial_eaten_amount = 0;
 	new->id = id;
 	new->data = data;
+	new->eaten_amount = initial_eaten_amount;
 	new->starvation = data->time_to_die;
 	new->left_fork = NULL;
 	new->lock = NULL;
 	new->death = death;
 	new->status = thinking;
+	new->error = NULL;
 	return (new);
 }
 
@@ -84,6 +97,7 @@ static t_fork	*init_a_fork(int id)
 	}
 	return (new);
 }
+
 static void	set_forks(t_philo **table, int index)
 {
 	if (index <= 0)

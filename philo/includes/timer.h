@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calloc.c                                           :+:      :+:    :+:   */
+/*   timer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 11:21:30 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/03 11:21:32 by usogukpi         ###   ########.fr       */
+/*   Created: 2025/02/03 14:02:10 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/03 17:30:56 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
+#ifndef TIMER_H
+# define TIMER_H
 
-static void	ft_bzero(void *s, size_t n)
-{
-	size_t			i;
-	unsigned char	*p;
+# define GET_TIME_ERR "gettimeofday function doesn't work as expected\n"
+# define ONE_MS 1000
 
-	p = (unsigned char *) s;
-	i = 0;
-	while (i < n)
-	{
-		p[i] = 0;
-		i++;
-	}
-}
+long		get_time(void);
+t_status	spend_time(t_philo *philo, int amount);
+t_status	spend_time_in_eating(t_philo *philo, int amount);
 
-void	*ft_calloc(size_t num, size_t size)
-{
-	unsigned char	*p;
-	size_t			total;
-
-	total = num * size;
-	p = malloc(total);
-	if (p == NULL)
-		return (NULL);
-	ft_bzero(p, total);
-	return (p);
-}
+#endif

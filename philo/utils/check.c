@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/02 18:57:03 by umut              #+#    #+#             */
-/*   Updated: 2025/02/02 19:18:38 by umut             ###   ########.fr       */
+/*   Created: 2025/02/03 11:21:39 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/03 18:02:26 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,9 @@ t_bool	check_args(int argn, char **args)
 		}
 	}
 	return (c_true);
+}
+
+t_bool	are_forks_free(t_fork *left, t_fork *right)
+{
+	return (left->is_free && right->is_free);
 }
