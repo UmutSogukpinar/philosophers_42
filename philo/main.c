@@ -3,96 +3,132 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 11:51:36 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/01 12:45:33 by usogukpi         ###   ########.fr       */
+/*   Created: 2025/02/03 11:21:48 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/04 23:06:31 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/philo.h"
-#include "stdio.h"
+#include "includes/philosophers.h"
 #include "stdlib.h"
+#include "stdio.h"
 
-static t_bool	process(char **args, t_data *data, t_bool *death);
+static t_bool	process(t_data *data, t_death *death);
+static t_bool	process_two(t_philo **table);
+static t_bool	process_three(t_philo **table);
+static t_bool	process_four(t_philo **table);
 
-#include <stdio.h>
-
-void	display_philos(t_philo **table)
-{
-	int	i;
-
-	if (!table)
-	{
-		printf("Table is empty or NULL.\n");
-		return;
-	}
-	i = 0;
-	while (table[i])
-	{
-		printf("Philosopher %d:\n", table[i]->id);
-		printf("  Starvation: %d\n", table[i]->starvation);
-		printf("  Left Fork ID: %d | Status: %s\n",
-			table[i]->left_fork->id,
-			table[i]->left_fork->is_free ? "Free" : "Taken");
-		printf("  Right Fork ID: %d | Status: %s\n",
-			table[i]->right_fork->id,
-			table[i]->right_fork->is_free ? "Free" : "Taken");
-		printf("------------------------------------------------\n");
-		i++;
-	}
-}
-
-
-int	main(int arg_num, char **args)
+int	main(int argn, char **args)
 {
 	t_data	*data;
-	t_bool	*death;
+	t_death	*death;
 
-	if (!(arg_num == 5 || arg_num == 6))
+	if (!(check_args(argn, args)))
 		return (0);
-	data = init_data(arg_num, args);
-	if (!data)
-		return (1);
+	data = init_data(argn, args);
 	death = init_death();
-	if (!death)
+	if (!data || !death)
 	{
-		custom_free((void **)&(data));
+		free_data(data);
+		free_death(death);
 		return (1);
 	}
-	if (process(args, data, death))
+	if (process(data, death))
 	{
-		custom_free((void **)&(data));
-		custom_free((void **)&(death));
-		return (1);
+		free_data(data);
+		free_death(death);
+		return (0);
 	}
-	custom_free((void **)&(data));
-	custom_free((void **)&(death));
-	return (0);
+	free_data(data);
+	free_death(death);
+	return (1);
 }
 
-static t_bool	process(char **args, t_data *data, t_bool *death)
+static t_bool	process(t_data *data, t_death *death)
 {
-	t_philo	**table;
-	int		phil_num;
 	int		i;
+	t_philo	**table;
 
-	phil_num = ft_atoi(args[1]);
-	if (phil_num <= 0)
-		return (c_false);
-	table = malloc(sizeof(t_philo *) * (phil_num + 1));
+	table = ft_calloc((data->number_of_phils + 1), sizeof(t_philo *));
 	if (!table)
+	{
+		printf(ALLOC_ERR);
+		printf("Error on \033[1;31m\"process()\"\033[0m function\n");
 		return (c_false);
-	i = -1;
-	while (++i < phil_num)
-		table[i] = NULL;
-	table[phil_num] = NULL;
+	}
 	i = 0;
-	while (++i <= phil_num)
+	while (++i <= data->number_of_phils)
+	{
 		if (!(add_phil(table, data, death, i)))
+		{
+			printf("Error on \033[1;31m\"process()\"\033[0m function\n");
 			return (c_false);
-	if (process_second_part(table))
+		}
+	}
+	if (process_two(table))
 		return (c_true);
-	else
+	printf("Error on \033[1;31m\"process()\"\033[0m function\n");
+	return (c_false);
+}
+
+static t_bool	process_two(t_philo **table)
+{
+	t_lock	*common_lock;
+
+	common_lock = init_lock();
+	if (!common_lock)
+	{
+		printf("Error on \033[1;31m\"process_two()\"\033[0m function\n");
+		free_table(table);
 		return (c_false);
+	}
+	set_lock(table, common_lock);
+	if (process_three(table))
+	{
+		free_common_lock(common_lock);
+		free_table(table);
+		return (c_true);
+	}
+	free_common_lock(common_lock);
+	free_table(table);
+	printf("Error on \033[1;31m\"process_two()\"\033[0m function\n");
+	return (c_false);
+}
+
+static t_bool	process_three(t_philo **table)
+{
+	t_bool	*error_flag;
+	t_lock	*common_lock2;
+
+	error_flag = init_error_flag();
+	common_lock2 = init_lock();
+	if (!error_flag || !common_lock2)
+	{
+		if (error_flag)
+			free(error_flag);
+		if (common_lock2)
+			free(common_lock2);
+		printf("Error on \033[1;31m\"process_three()\"\033[0m function\n");
+		return (c_false);
+	}
+	set_error_flag(table, error_flag);
+	set_lock2(table, common_lock2);
+	if (process_four(table))
+	{
+		free(error_flag);
+		free(common_lock2);
+		return (c_true);
+	}
+	free(error_flag);
+	free(common_lock2);
+	return (c_false);
+}
+
+static t_bool	process_four(t_philo **table)
+{
+	if (thread_process(table) == c_true)
+		return (c_true);
+	printf("Error on \033[1;31m\"process_four()\"\033[0m function\n");
+	return (c_false);
 }

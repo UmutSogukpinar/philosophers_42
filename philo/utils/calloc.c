@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   calloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 18:02:32 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/01 10:56:00 by usogukpi         ###   ########.fr       */
+/*   Created: 2025/02/03 11:21:30 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/03 11:21:32 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/philo.h"
 #include "stdlib.h"
 
-void	custom_free(void **ptr)
+static void	ft_bzero(void *s, size_t n)
 {
-	if (ptr && *ptr)
+	size_t			i;
+	unsigned char	*p;
+
+	p = (unsigned char *) s;
+	i = 0;
+	while (i < n)
 	{
-		free(*ptr);
-		*ptr = NULL;
+		p[i] = 0;
+		i++;
 	}
 }
 
-void	free_table(t_philo **table)
+void	*ft_calloc(size_t num, size_t size)
 {
-	int	i;
+	unsigned char	*p;
+	size_t			total;
 
-	if (!table)
-		return ;
-	i = 0;
-	while (table[i] != NULL)
-	{
-		if (table[i])
-		{
-			custom_free((void **)&(table[i]->right_fork));
-			custom_free((void **)&(table[i]));
-		}
-		i++;
-	}
-	free(table);
-	table = NULL;
+	total = num * size;
+	p = malloc(total);
+	if (p == NULL)
+		return (NULL);
+	ft_bzero(p, total);
+	return (p);
 }

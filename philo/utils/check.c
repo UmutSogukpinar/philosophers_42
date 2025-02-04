@@ -1,39 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.c                                            :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/01 10:56:13 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/01 17:59:34 by usogukpi         ###   ########.fr       */
+/*   Created: 2025/02/03 11:21:39 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/04 16:11:29 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/philo.h"
+#include "../includes/philosophers.h"
+#include "stdio.h"
 
-t_bool	lock_fork(t_philo *phil, t_fork *fork, long *time)
+t_bool	check_args(int argn, char **args)
 {
-	t_bool	status;
+	int	i;
+	int	num;
 
-	pthread_mutex_lock(&(fork->mutex));
-	status = get_time(time);
-	if (!status)
+	if (!(argn == 5 || argn == 6))
 	{
-		pthread_mutex_unlock(&(fork->mutex));
+		printf(INV_ARGN);
 		return (c_false);
 	}
-	fork->is_free = c_false;
+	i = 0;
+	while (++i <= argn - 1)
+	{
+		num = ft_atoi(args[i]);
+		if (num <= 0)
+		{
+			printf(INV_ARGS);
+			return (c_false);
+		}
+	}
 	return (c_true);
 }
-void	unlock_fork(t_fork *fork)
-{
-	pthread_mutex_unlock(&(fork->mutex));
-	fork->is_free = c_true;
-}
 
-void	unlock_both_fork(t_fork *left_fork, t_fork *right_fork)
+t_bool	are_forks_free(t_fork *left, t_fork *right)
 {
-	unlock_fork(left_fork);
-	unlock_fork(right_fork);
+	if (!left || !right)
+		return (c_false);
+	return (left->is_free && right->is_free);
 }
