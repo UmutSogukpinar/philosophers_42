@@ -2,7 +2,8 @@ NAME = philo
 
 CC = cc
 RM = rm -rf
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+CFLAGS2 = -Wall -Wextra -Werror -Iincludes
+CFLAGS  = -g
 
 FREE_DIR = ./free
 INIT_DIR = ./init
@@ -12,6 +13,7 @@ TIME_DIR = ./time
 
 SRCS =	main.c \
 		$(THREAD_DIR)/routine.c \
+		$(THREAD_DIR)/routine_two.c \
 		$(THREAD_DIR)/thread.c \
 		$(THREAD_DIR)/lock.c \
 		$(INIT_DIR)/init.c \

@@ -6,11 +6,11 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 12:23:02 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/03 13:25:25 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:10:06 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 #include "stdio.h"
 
 static t_bool	create_joins(t_philo **table);

@@ -6,15 +6,15 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:56:43 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/03 18:20:28 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:11:45 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "sys/time.h"
-#include "timer.h"
+#include "../includes/timer.h"
 #include "unistd.h"
 
 static long	get_ms(long sec, long microsec)
@@ -38,14 +38,14 @@ t_status	spend_time(t_philo *philo, int amount)
 {
 	int	i;
 
-	if (does_have_death(philo))
+	if (does_have_death(philo) || does_come_limit(philo))
 		return (c_exit);
 	i = -1;
 	while (++i < amount)
 	{
 		usleep(ONE_MS);
 		philo->starvation -= 1;
-		if (does_have_death(philo))
+		if (does_have_death(philo) || does_come_limit(philo))
 			return (c_exit);
 	}
 	return (philo->status);
@@ -55,13 +55,13 @@ t_status	spend_time_in_eating(t_philo *philo, int amount)
 {
 	int	i;
 
-	if (does_have_death(philo))
+	if (does_have_death(philo) || does_come_limit(philo))
 		return (c_exit);
 	i = -1;
 	while (++i < amount)
 	{
 		usleep(ONE_MS);
-		if (does_have_death(philo))
+		if (does_have_death(philo) || does_come_limit(philo))
 			return (c_exit);
 	}
 	return (philo->status);

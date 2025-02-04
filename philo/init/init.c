@@ -6,11 +6,11 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:23 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/03 15:46:45 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:10:52 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 #include "stdio.h"
 #include "stdlib.h"
 

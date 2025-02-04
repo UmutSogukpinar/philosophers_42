@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:08 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/03 18:02:11 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:48:18 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,11 @@ t_bool				safe_lock(pthread_mutex_t *mutex);
 t_bool				safe_unlock(pthread_mutex_t *mutex);
 
 t_bool				does_have_death(t_philo *philo);
+t_bool				does_come_limit(t_philo *philo);
 void				*routine(void *arg);
+t_status			p_pick_fork(t_philo *philo);
+t_status			p_sleep(t_philo *philo);
+t_status			p_think(t_philo *philo);
 
 void				free_data(t_data *data);
 t_bool				free_death(t_death *death);

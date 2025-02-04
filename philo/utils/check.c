@@ -6,11 +6,11 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:39 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/03 18:02:26 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:11:29 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../includes/philosophers.h"
 #include "stdio.h"
 
 t_bool	check_args(int argn, char **args)
@@ -38,5 +38,7 @@ t_bool	check_args(int argn, char **args)
 
 t_bool	are_forks_free(t_fork *left, t_fork *right)
 {
+	if (!left || !right)
+		return (c_false);
 	return (left->is_free && right->is_free);
 }
