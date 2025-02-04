@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:48 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 16:07:54 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:44:16 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static t_bool	process(t_data *data, t_death *death);
 static t_bool	process_two(t_philo **table);
 static t_bool	process_three(t_philo **table);
+static t_bool	process_four(t_philo **table);
 
 int	main(int argn, char **args)
 {
@@ -106,12 +107,19 @@ static t_bool	process_three(t_philo **table)
 		return (c_false);
 	}
 	set_error_flag(table, error_flag);
-	if (thread_process(table) == c_true)
+	if (process_four(table))
 	{
 		free(error_flag);
 		return (c_true);
 	}
 	free(error_flag);
-	printf("Error on \033[1;31m\"process_three()\"\033[0m function\n");
+	return (c_false);
+}
+
+static t_bool	process_four(t_philo **table)
+{
+	if (thread_process(table) == c_true)
+		return (c_true);
+	printf("Error on \033[1;31m\"process_four()\"\033[0m function\n");
 	return (c_false);
 }
