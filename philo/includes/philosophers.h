@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:08 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 15:48:18 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:08:40 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_fork
 {
 	int				id;
 	t_bool			is_free;
-	t_lock			lock;
 
 }					t_fork;
 
@@ -82,6 +81,7 @@ typedef struct s_philo
 	t_fork			*right_fork;
 	pthread_t		thread;
 	t_lock			*lock;
+	t_lock			*lock2;
 	t_bool			*error;
 
 }					t_philo;
@@ -98,6 +98,7 @@ t_death				*init_death(void);
 t_lock				*init_lock(void);
 t_bool				*init_error_flag(void);
 void				set_lock(t_philo **table, t_lock *lock);
+void				set_lock2(t_philo **table, t_lock *lock);
 void				set_error_flag(t_philo **table, t_bool *error_flag);
 
 t_bool				safe_lock(pthread_mutex_t *mutex);

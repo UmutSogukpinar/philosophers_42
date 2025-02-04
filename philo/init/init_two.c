@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_two.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:15 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 16:11:02 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:08:36 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,6 @@ static t_fork	*init_a_fork(int id)
 	}
 	new->id = id;
 	new->is_free = c_true;
-	if (pthread_mutex_init(&(new->lock.lock), NULL) != 0)
-	{
-		printf(MUTEX_INIT_ERR);
-		printf("Error on \033[1;31m\"init_a_fork()\"\033[0m function\n");
-		free(new);
-		return (NULL);
-	}
 	return (new);
 }
 

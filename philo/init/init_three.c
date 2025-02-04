@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_three.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:45:39 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 16:11:04 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:07:33 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ void	set_lock(t_philo **table, t_lock *lock)
 	while (table[i])
 	{
 		table[i]->lock = lock;
+		i++;
+	}
+}
+
+void	set_lock2(t_philo **table, t_lock *lock)
+{
+	int	i;
+
+	i = 0;
+	while (table[i])
+	{
+		table[i]->lock2 = lock;
 		i++;
 	}
 }
