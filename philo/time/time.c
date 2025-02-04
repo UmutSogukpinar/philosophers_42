@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:56:43 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 16:11:45 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/05 00:02:22 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ t_status	spend_time(t_philo *philo, int amount)
 	if (does_have_death(philo) || does_come_limit(philo))
 		return (c_exit);
 	i = -1;
-	while (++i < amount)
+	while (++i < amount * 2)
 	{
-		usleep(ONE_MS);
-		philo->starvation -= 1;
+		usleep(ZERO_POINT_FİVE_MS);
+		philo->starvation -= 0.5;
 		if (does_have_death(philo) || does_come_limit(philo))
 			return (c_exit);
 	}

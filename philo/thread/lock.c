@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lock.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:33:14 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 16:10:34 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:59:45 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ t_bool	does_come_limit(t_philo *philo)
 	safe_lock(&(philo->death->lock.lock));
 	if (philo->data->eat_limit <= philo->eaten_amount)
 	{
-		philo->death->does_exist = c_true;
+		philo->left_fork->is_free = c_true;
+		philo->right_fork->is_free = c_true;
 		safe_unlock(&(philo->death->lock.lock));
 		return (c_true);
 	}

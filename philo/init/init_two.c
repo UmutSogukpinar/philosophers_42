@@ -6,7 +6,7 @@
 /*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:15 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 23:08:36 by umut             ###   ########.fr       */
+/*   Updated: 2025/02/04 23:57:23 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_philo	*init_a_phil_two(t_philo *new, int id, t_data *data,
 	new->id = id;
 	new->data = data;
 	new->eaten_amount = initial_eaten_amount;
-	new->starvation = data->time_to_die;
+	new->starvation = (double)data->time_to_die;
 	new->left_fork = NULL;
 	new->lock = NULL;
 	new->death = death;
