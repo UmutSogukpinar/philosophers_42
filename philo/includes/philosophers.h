@@ -6,7 +6,7 @@
 /*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:08 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 23:57:11 by umut             ###   ########.fr       */
+/*   Updated: 2025/02/05 21:38:21 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				eaten_amount;
+	int				first_run;
 	double			starvation;
 	t_status		status;
 	t_data			*data;

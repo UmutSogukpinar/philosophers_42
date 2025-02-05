@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_two.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:42:38 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 19:08:48 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:41:29 by umut             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ static t_status	picking_forks(t_philo *phil);
 
 t_status	p_pick_fork(t_philo *philo)
 {
-	if ((philo->id % 2) == 0 && philo->eaten_amount == 0)
+	if ((philo->id % 2) == 0 && philo->first_run == 0)
+	{
+		philo->first_run = 1;
 		if (spend_time(philo, 1) == c_exit)
 			return (c_exit);
+	}
 	if (does_have_death(philo))
 		return (c_exit);
 	safe_lock(&(philo->lock->lock));
@@ -30,7 +33,6 @@ t_status	p_pick_fork(t_philo *philo)
 		safe_unlock(&(philo->lock->lock));
 		return (philo->status);
 	}
-	philo->status = eating;
 	if (picking_forks(philo) == c_exit)
 	{
 		safe_unlock(&(philo->lock->lock));
