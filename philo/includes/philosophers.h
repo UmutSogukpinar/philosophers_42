@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:08 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/05 21:38:21 by umut             ###   ########.fr       */
+/*   Updated: 2025/02/06 14:00:18 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ typedef struct s_philo
 	int				id;
 	int				eaten_amount;
 	int				first_run;
+	int				*number_of_full_phils;
 	double			starvation;
+	t_bool			is_full;
 	t_status		status;
 	t_data			*data;
 	t_death			*death;
@@ -98,9 +100,10 @@ t_data				*init_data(int argn, char **args);
 t_death				*init_death(void);
 t_lock				*init_lock(void);
 t_bool				*init_error_flag(void);
+int					*init_common_number(void);
 void				set_lock(t_philo **table, t_lock *lock);
-void				set_lock2(t_philo **table, t_lock *lock);
 void				set_error_flag(t_philo **table, t_bool *error_flag);
+void				set_common_number(t_philo **table, int *common_number);
 
 t_bool				safe_lock(pthread_mutex_t *mutex);
 t_bool				safe_unlock(pthread_mutex_t *mutex);
@@ -108,7 +111,9 @@ t_bool				safe_unlock(pthread_mutex_t *mutex);
 t_bool				does_have_death(t_philo *philo);
 t_bool				does_come_limit(t_philo *philo);
 void				*routine(void *arg);
+void				*routine2(void *arg);
 t_status			p_pick_fork(t_philo *philo);
+t_status			p_pick_fork2(t_philo *philo);
 t_status			p_sleep(t_philo *philo);
 t_status			p_think(t_philo *philo);
 
@@ -119,5 +124,6 @@ void				free_table(t_philo **table);
 
 void				*ft_calloc(size_t num, size_t size);
 int					ft_atoi(const char *str);
+t_bool				is_full(t_philo *philo);
 
 #endif

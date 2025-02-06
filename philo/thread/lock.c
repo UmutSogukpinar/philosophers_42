@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lock.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 13:33:14 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 23:59:45 by umut             ###   ########.fr       */
+/*   Updated: 2025/02/06 12:49:38 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,16 @@ t_bool	does_have_death(t_philo *philo)
 	return (c_false);
 }
 
+t_bool	is_full(t_philo	*philo)
+{
+	if (philo->data->eat_limit == -1)
+		return (c_false);
+	return (philo->eaten_amount >= philo->data->eat_limit && philo->is_full == c_false);
+}
+
 t_bool	does_come_limit(t_philo *philo)
 {
 	if (philo->data->eat_limit == -1)
 		return (c_false);
-	safe_lock(&(philo->death->lock.lock));
-	if (philo->data->eat_limit <= philo->eaten_amount)
-	{
-		philo->left_fork->is_free = c_true;
-		philo->right_fork->is_free = c_true;
-		safe_unlock(&(philo->death->lock.lock));
-		return (c_true);
-	}
-	safe_unlock(&(philo->death->lock.lock));
-	return (c_false);
+	return (*(philo->number_of_full_phils) == philo->data->number_of_phils);
 }

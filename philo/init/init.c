@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:23 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 16:10:52 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:30:41 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,26 @@ t_death	*init_death(void)
 		return (NULL);
 	}
 	return (new);
+}
+
+int	*init_common_number(void)
+{
+	int	*new;
+
+	new = malloc(sizeof(int));
+	if (!new)
+		return (NULL);
+	*new = 0;
+	return (new);
+}
+
+void	set_common_number(t_philo **table, int *common_number)
+{
+	int	i;
+
+	i = -1;
+	while (table[++i])
+	{
+		table[i]->number_of_full_phils = common_number;
+	}
 }

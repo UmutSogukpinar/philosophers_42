@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_two.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:15 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/05 21:38:48 by umut             ###   ########.fr       */
+/*   Updated: 2025/02/06 12:19:48 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static t_philo	*init_a_phil_two(t_philo *new, int id, t_data *data,
 	new->data = data;
 	new->eaten_amount = first_value;
 	new->first_run = first_value;
+	new->is_full = c_false;
 	new->starvation = (double)data->time_to_die;
 	new->left_fork = NULL;
 	new->lock = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 11:21:48 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 23:06:31 by umut             ###   ########.fr       */
+/*   Updated: 2025/02/06 12:30:19 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,34 +99,34 @@ static t_bool	process_two(t_philo **table)
 static t_bool	process_three(t_philo **table)
 {
 	t_bool	*error_flag;
-	t_lock	*common_lock2;
 
 	error_flag = init_error_flag();
-	common_lock2 = init_lock();
-	if (!error_flag || !common_lock2)
+	if (!error_flag)
 	{
-		if (error_flag)
-			free(error_flag);
-		if (common_lock2)
-			free(common_lock2);
 		printf("Error on \033[1;31m\"process_three()\"\033[0m function\n");
 		return (c_false);
 	}
 	set_error_flag(table, error_flag);
-	set_lock2(table, common_lock2);
 	if (process_four(table))
 	{
 		free(error_flag);
-		free(common_lock2);
 		return (c_true);
 	}
 	free(error_flag);
-	free(common_lock2);
 	return (c_false);
 }
 
 static t_bool	process_four(t_philo **table)
 {
+	int	*common_number;
+
+	common_number = init_common_number();
+	if (!common_number)
+	{
+		printf("Error on \033[1;31m\"process_four()\"\033[0m function\n");
+		return (c_false);
+	}
+	set_common_number(table, common_number);
 	if (thread_process(table) == c_true)
 		return (c_true);
 	printf("Error on \033[1;31m\"process_four()\"\033[0m function\n");

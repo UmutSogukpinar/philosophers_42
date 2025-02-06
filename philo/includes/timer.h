@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   timer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umut <umut@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:02:10 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/05 00:02:17 by umut             ###   ########.fr       */
+/*   Updated: 2025/02/06 15:16:17 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 long		get_time(void);
 t_status	spend_time(t_philo *philo, int amount);
+t_status	spend_time2(t_philo *philo, double amount);
 t_status	spend_time_in_eating(t_philo *philo, int amount);
 
 #endif

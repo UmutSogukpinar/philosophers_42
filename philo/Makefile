@@ -14,6 +14,7 @@ OBJ_DIR    = obj
 SRCS = main.c \
        $(THREAD_DIR)/routine.c \
        $(THREAD_DIR)/routine_two.c \
+       $(THREAD_DIR)/routine_three.c \
        $(THREAD_DIR)/thread.c \
        $(THREAD_DIR)/lock.c \
        $(INIT_DIR)/init.c \
