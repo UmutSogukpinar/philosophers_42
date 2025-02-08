@@ -56,6 +56,7 @@ typedef struct	s_data
 	t_lock				meal_lock;
 	t_lock				dead_lock;
 	t_lock				waiter_lock;
+	t_lock				print_lock;
 
 }					t_data;
 

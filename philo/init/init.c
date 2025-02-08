@@ -54,6 +54,7 @@ t_data	*init_data(int argn, char **args)
 	pthread_mutex_init(&(new->meal_lock.lock), NULL);
 	pthread_mutex_init(&(new->dead_lock.lock), NULL);
 	pthread_mutex_init(&(new->waiter_lock.lock), NULL);
+	pthread_mutex_init(&(new->print_lock.lock), NULL);
 	return (new);
 }
 
