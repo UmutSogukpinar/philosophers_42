@@ -1,84 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 13:56:43 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/06 15:16:38 by usogukpi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../includes/philosophers.h"
-#include "stdio.h"
-#include "stdlib.h"
 #include "sys/time.h"
-#include "../includes/timer.h"
+#include "stdio.h"
+#include "timer.h"
+#include "utils.h"
 #include "unistd.h"
 
-static long	get_ms(long sec, long microsec)
+long long	get_current_time(void)
 {
-	return (sec * 1000) + (microsec / 1000);
-}
+	struct timeval	time;
 
-long	get_time(void)
-{
-	struct timeval	current_time;
-
-	if (gettimeofday(&current_time, NULL) != 0)
-	{
+	if (gettimeofday(&time, NULL) == -1)
 		printf(GET_TIME_ERR);
-		printf("Error on \033[1;31m\"get_time()\"\033[0m function\n");
-	}
-	return (get_ms(current_time.tv_sec, current_time.tv_usec));
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-t_status	spend_time(t_philo *philo, int amount)
+t_status	ft_sleep(t_philo *philo, int sleeptime)
 {
-	int	i;
+	long long	wakeup_time;
 
-	if (does_have_death(philo) || does_come_limit(philo))
-		return (c_exit);
-	i = -1;
-	while (++i < amount)
+	wakeup_time = get_current_time() + sleeptime;
+	while (wakeup_time > get_current_time())
 	{
-		usleep(ONE_MS);
-		philo->starvation -= 1;
-		if (does_have_death(philo) || does_come_limit(philo))
-			return (c_exit);
-	}
-	return (philo->status);
-}
-
-t_status	spend_time2(t_philo *philo, double amount)
-{
-	int	i;
-
-	if (does_have_death(philo) || does_come_limit(philo))
-		return (c_exit);
-	i = -1;
-	while (++i < amount * 2)
-	{
-		usleep(500);
-		philo->starvation -= 0.5;
-		if (does_have_death(philo) || does_come_limit(philo))
-			return (c_exit);
-	}
-	return (philo->status);
-}
-
-t_status	spend_time_in_eating(t_philo *philo, int amount)
-{
-	int	i;
-
-	if (does_have_death(philo) || does_come_limit(philo))
-		return (c_exit);
-	i = -1;
-	while (++i < amount)
-	{
-		usleep(ONE_MS);
-		if (does_have_death(philo) || does_come_limit(philo))
+		usleep(50);
+		if (check_death(philo))
 			return (c_exit);
 	}
 	return (philo->status);

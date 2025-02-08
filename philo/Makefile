@@ -4,29 +4,22 @@ CC = cc
 RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 
-FREE_DIR   = free
 INIT_DIR   = init
-THREAD_DIR = thread
+DINNER_DIR = dinner
 UTILS_DIR  = utils
 TIME_DIR   = time
 OBJ_DIR    = obj
 
-SRCS = main.c \
-       $(THREAD_DIR)/routine.c \
-       $(THREAD_DIR)/routine_two.c \
-       $(THREAD_DIR)/routine_three.c \
-       $(THREAD_DIR)/thread.c \
-       $(THREAD_DIR)/lock.c \
-       $(INIT_DIR)/init.c \
-       $(INIT_DIR)/init_two.c \
-       $(INIT_DIR)/init_three.c \
-       $(FREE_DIR)/free.c \
-       $(FREE_DIR)/free_two.c \
-       $(UTILS_DIR)/calloc.c \
-       $(UTILS_DIR)/utils.c \
-       $(UTILS_DIR)/check.c \
-       $(TIME_DIR)/time.c
-
+SRCS =	main.c \
+		$(INIT_DIR)/init.c \
+		$(DINNER_DIR)/routine.c \
+		$(DINNER_DIR)/beginning.c \
+		$(TIME_DIR)/time.c \
+		$(UTILS_DIR)/table.c \
+		$(UTILS_DIR)/lock.c \
+		$(UTILS_DIR)/print.c \
+		$(UTILS_DIR)/check.c \
+		$(UTILS_DIR)/libft.c \
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
@@ -48,3 +41,6 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+
+

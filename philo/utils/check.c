@@ -1,17 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 11:21:39 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/04 16:11:29 by usogukpi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../includes/philosophers.h"
+#include "utils.h"
 #include "stdio.h"
+#include "timer.h"
 
 t_bool	check_args(int argn, char **args)
 {
@@ -36,9 +25,50 @@ t_bool	check_args(int argn, char **args)
 	return (c_true);
 }
 
-t_bool	are_forks_free(t_fork *left, t_fork *right)
+t_bool	check_death(t_philo *philo)
 {
-	if (!left || !right)
-		return (c_false);
-	return (left->is_free && right->is_free);
+	if (((get_current_time() - (philo->last_meal_time))
+		> (long long)philo->data->time_to_die))
+		{
+			return (c_true);
+		}
+	return (c_false);
 }
+
+t_bool	check_satisfaction(t_philo *philo)
+{
+	if (philo->eaten_amount == 0)
+	{
+		safe_lock(&(philo->data->meal_lock.lock));
+		philo->data->number_full_phils += 1;
+		safe_unlock(&(philo->data->meal_lock.lock));
+		if (philo->data->number_full_phils == philo->data->number_phils)
+		{
+			philo->data->eat_limit_flag = c_true;
+			return (c_true);
+		}
+		return (c_false);
+	}
+	return (c_false);
+}
+
+t_bool	check_fork(t_philo *philo)
+{
+	if (!(philo->left_fork) || !(philo->right_fork))
+		return (c_false);
+	if (philo->left_fork->is_free && philo->right_fork->is_free)
+	{
+		philo->left_fork->is_free = c_false;
+		philo->right_fork->is_free = c_false;
+		return (c_true);
+	}
+	return (c_false);
+}
+
+t_bool	check_routine_finish(t_data *data)
+{
+	if (data->death_flag == c_true || data->eat_limit_flag == c_true)
+		return (c_true);
+	return (c_false);
+}
+
