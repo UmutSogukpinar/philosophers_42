@@ -20,7 +20,7 @@ void	*routine(void *arg)
 	{
 		while (!(check_routine_finish(philo->data))
 			&& p_eat(philo) == c_thinking)
-			ft_sleep(philo, 100) ;
+			ft_sleep(philo, 1);
 		if (check_routine_finish(philo->data))
 			return (NULL);
 		if (p_sleep_and_think(philo) == c_exit)
