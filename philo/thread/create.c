@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   timer.h                                            :+:      :+:    :+:   */
+/*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 14:51:59 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/09 14:52:00 by usogukpi         ###   ########.fr       */
+/*   Created: 2025/02/09 14:53:43 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/09 14:53:52 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIMER_H
-# define TIMER_H
+#include "../includes/philosophers.h"
 
-# include "philosophers.h"
+void	create_threads(t_philo **table, t_data *data)
+{
+	int	i;
 
-t_ms	get_time(void);
-void	ft_sleep(t_ms waiting_time);
+	i = 0;
+	while (i < data->number_phils)
+	{
+		pthread_create(&(table[i]->thread), NULL, routine, table[i]);
+		i++;
+	}
+}
 
-#endif
+void	create_joins(t_philo **table, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->number_phils)
+	{
+		pthread_join(table[i]->thread, NULL);
+		i++;
+	}
+}

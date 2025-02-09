@@ -1,18 +1,65 @@
-#include "unistd.h"
-#include "utils.h"
-#include "timer.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/09 14:58:19 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/09 16:26:15 by usogukpi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/philosophers.h"
+#include "../includes/timer.h"
 #include "stdio.h"
 
-t_status	ft_print_status(t_philo *philo, char *str)
+static void	print_others(t_philo *philo, t_status status);
+
+void	print_status(t_philo *philo, t_status status)
 {
-	safe_lock(&(philo->data->print_lock.lock));
-	if (check_death(philo) == c_true)
+	pthread_mutex_lock(&(philo->data->print_lock));
+	if (philo->data->death_flag == c_false && status == c_death)
 	{
-		safe_unlock(&(philo->data->print_lock.lock));
-		return (c_exit);
+		printf("%lld %d %s", (get_time() - philo->data->milestone), philo->id,
+			DEATH_MSG);
+		philo->data->death_flag = c_true;
+		pthread_mutex_unlock(&(philo->data->print_lock));
+		return ;
 	}
-	printf("%llu %d %s", (get_current_time() - philo->data->start_time),
-		philo->id, str);
-	safe_unlock(&(philo->data->print_lock.lock));
-	return (philo->status);
+	else if (philo->data->death_flag == c_true)
+	{
+		pthread_mutex_unlock(&(philo->data->print_lock));
+		return ;
+	}
+	print_others(philo, status);
+	pthread_mutex_unlock(&(philo->data->print_lock));
+}
+
+static void	print_others(t_philo *philo, t_status status)
+{
+	if (status == c_taking_forks)
+	{
+		printf("%lld %d %s", (get_time() - philo->data->milestone), philo->id,
+			FORK_MSG);
+		return ;
+	}
+	if (status == c_eating)
+	{
+		printf("%lld %d %s", (get_time() - philo->data->milestone), philo->id,
+			EAT_MSG);
+		return ;
+	}
+	if (status == c_thinking)
+	{
+		printf("%lld %d %s", (get_time() - philo->data->milestone), philo->id,
+			THINK_MSG);
+		return ;
+	}
+	if (status == c_sleeping)
+	{
+		printf("%lld %d %s", (get_time() - philo->data->milestone), philo->id,
+			SLEEP_MSG);
+		return ;
+	}
 }

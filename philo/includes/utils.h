@@ -1,19 +1,30 @@
-#ifndef UTILS_S
-# define UTILS_S
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/09 14:52:06 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/09 16:32:34 by usogukpi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "philosophers.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-t_bool		check_death(t_philo *philo);
-t_bool		check_satisfaction(t_philo *philo);
-t_bool		check_fork(t_philo *philo);
-t_bool		check_args(int argn, char **args);
-t_bool		check_routine_finish(t_data *data);
+# include "philosophers.h"
+# include "stdlib.h"
 
-void		free_table(t_philo **table);
-void		set_table(t_philo **table, t_data *data);
-t_status	ft_print_status(t_philo *philo, char *str);
-
+void		print_status(t_philo *philo, t_status status);
 void		*ft_calloc(size_t num, size_t size);
 int			ft_atoi(const char *str);
+
+t_bool		check_args(int argn, char **args);
+t_bool		check_satisfaction(t_data *data);
+
+void		set_table(t_philo **table, int number_of_phils);
+void		free_table(t_philo **table);
+t_status	error_message(char *func_name, char *message);
 
 #endif

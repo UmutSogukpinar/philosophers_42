@@ -1,88 +1,93 @@
-#include "stdio.h"
-#include "stdlib.h"
-#include "philosophers.h"
-#include "utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/09 14:52:59 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/09 16:31:24 by usogukpi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static t_fork	*init_fork(int id);
+#include "../includes/philosophers.h"
+#include "../includes/utils.h"
+
 static t_philo	*init_philo(int id, t_data *data);
-static t_philo	**init_table(int amount, t_data *data);
+static t_fork	*init_fork(int id);
 
-t_greece	*init_ancient_greece(t_data *data)
+t_bool	init_data(int argn, char **args, t_data *data)
 {
-	t_greece	*ancient_greece;
-
-	ancient_greece = ft_calloc(1, sizeof(t_greece));
-	if (!ancient_greece)
+	if (argn != 6 && argn != 5)
 	{
-		printf(ALLOC_ERR);
-		printf("Error on \033[1;31m\"init_ancient_greece()\"\033[0m function\n");
-		return (NULL);
+		free(data);
+		return (c_false);
 	}
-	ancient_greece->data = data;
-	ancient_greece->table = init_table(data->number_phils, data);
-	if (!(ancient_greece->table))
+	if (!(check_args(argn, args)))
 	{
-		free(ancient_greece);
-		printf("Error on \033[1;31m\"init_ancient_greece()\"\033[0m function\n");
-		return (NULL);
+		free(data);
+		return (c_false);
 	}
-	return (ancient_greece);
-}
-
-t_data	*init_data(int argn, char **args)
-{
-	t_data	*new;
-
-	new = ft_calloc(1, sizeof(t_data));
-	if (!new)
-	{
-		printf(ALLOC_ERR);
-		printf("Error on \033[1;31m\"init_data()\"\033[0m function\n");
-		return (NULL);
-	}
-	new->number_phils = ft_atoi(args[1]);
-	new->time_to_die = ft_atoi(args[2]);
-	new->time_to_eat = ft_atoi(args[3]);
-	new->time_to_sleep = ft_atoi(args[4]);
-	new->eat_limit = -1;
+	data->eat_limit = -1;
+	data->number_phils = ft_atoi(args[1]);
+	data->time_to_die = ft_atoi(args[2]);
+	data->time_to_eat = ft_atoi(args[3]);
+	data->time_to_sleep = ft_atoi(args[4]);
 	if (argn == 6)
-		new->eat_limit = ft_atoi(args[5]);
-	new->number_full_phils = 0;
-	new->start_time = 0;
-	new->death_flag = c_false;
-	new->eat_limit_flag = c_false;
-	pthread_mutex_init(&(new->meal_lock.lock), NULL);
-	pthread_mutex_init(&(new->dead_lock.lock), NULL);
-	pthread_mutex_init(&(new->waiter_lock.lock), NULL);
-	pthread_mutex_init(&(new->print_lock.lock), NULL);
-	return (new);
+		data->eat_limit = ft_atoi(args[5]);
+	data->number_full_phils = 0;
+	data->death_flag = c_false;
+	pthread_mutex_init(&(data->meal_lock), NULL);
+	pthread_mutex_init(&(data->print_lock), NULL);
+	return (c_true);
 }
 
-static t_philo	**init_table(int amount, t_data *data)
+void	set_table(t_philo **table, int number_of_phils)
 {
-	t_philo	**table;
+	int	i;
+
+	if (number_of_phils == 1)
+		return ;
+	i = -1;
+	while (++i < number_of_phils)
+	{
+		table[i]->left_fork = table[(i + 1) % number_of_phils]->right_fork;
+		if (i % 2 == 0)
+		{
+			table[i]->first_fork = table[i]->right_fork;
+			table[i]->last_fork = table[i]->left_fork;
+		}
+		else if (i % 2 == 1)
+		{
+			table[i]->first_fork = table[i]->left_fork;
+			table[i]->last_fork = table[i]->right_fork;
+		}
+	}
+}
+
+t_philo	**init_table(t_data *data)
+{
+	t_philo	**new;
 	int		i;
 
-	table = ft_calloc(amount + 1, sizeof(t_philo *));
-	if (!table)
+	new = ft_calloc((data->number_phils + 1), sizeof(t_philo *));
+	if (!new)
 	{
-		printf(ALLOC_ERR);
-		printf("Error on \033[1;31m\"init_table()\"\033[0m function\n");
+		error_message("init_table", ALLOC_ERR);
 		return (NULL);
 	}
 	i = -1;
-	while (++i < amount)
+	while (++i < data->number_phils)
 	{
-		table[i] = init_philo(i + 1, data);
-		if (table[i] == NULL)
+		new[i] = init_philo(i + 1, data);
+		if (!(new[i]))
 		{
-			free_table(table);
-			printf("Error on \033[1;31m\"init_table()\"\033[0m function\n");
+			free_table(new);
+			error_message("init_table", ALLOC_ERR);
 			return (NULL);
 		}
 	}
-	table[i] = NULL;
-	return (table);
+	return (new);
 }
 
 static t_philo	*init_philo(int id, t_data *data)
@@ -92,17 +97,14 @@ static t_philo	*init_philo(int id, t_data *data)
 	new = ft_calloc(1, sizeof(t_philo));
 	if (!new)
 	{
-		printf(ALLOC_ERR);
-		printf("Error on \033[1;31m\"init_philo()\"\033[0m function\n");
+		error_message("init_philo", ALLOC_ERR);
 		return (NULL);
 	}
 	new->id = id;
 	new->data = data;
-	new->eaten_amount = data->eat_limit;
-	new->last_meal_time = 9223372036854775807;
+	new->eaten_amount = 0;
 	new->left_fork = NULL;
 	new->right_fork = init_fork(id);
-	new->status = c_thinking;
 	return (new);
 }
 
@@ -113,11 +115,10 @@ static t_fork	*init_fork(int id)
 	new = ft_calloc(1, sizeof(t_fork));
 	if (!new)
 	{
-		printf(ALLOC_ERR);
-		printf("Error on \033[1;31m\"init_fork()\"\033[0m function\n");
+		error_message("init_fork", ALLOC_ERR);
 		return (NULL);
 	}
 	new->id = id;
-	new->is_free = c_true;
+	pthread_mutex_init(&(new->lock), NULL);
 	return (new);
 }

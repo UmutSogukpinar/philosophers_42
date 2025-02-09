@@ -5,21 +5,14 @@ RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 
 INIT_DIR   = init
-DINNER_DIR = dinner
+THREAD_DIR = thread
 UTILS_DIR  = utils
-TIME_DIR   = time
 OBJ_DIR    = obj
 
 SRCS =	main.c \
 		$(INIT_DIR)/init.c \
-		$(DINNER_DIR)/routine.c \
-		$(DINNER_DIR)/beginning.c \
-		$(TIME_DIR)/time.c \
-		$(UTILS_DIR)/table.c \
-		$(UTILS_DIR)/lock.c \
-		$(UTILS_DIR)/print.c \
-		$(UTILS_DIR)/check.c \
-		$(UTILS_DIR)/libft.c \
+		$(THREAD_DIR)/create.c $(THREAD_DIR)/routine.c $(THREAD_DIR)/routine_two.c \
+		$(UTILS_DIR)/check.c $(UTILS_DIR)/error_free.c $(UTILS_DIR)/libft.c $(UTILS_DIR)/print.c $(UTILS_DIR)/time.c \
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
@@ -41,6 +34,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
-
-

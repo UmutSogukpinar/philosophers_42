@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/09 14:58:23 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/09 15:16:53 by usogukpi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "stdlib.h"
 
 static void	ft_bzero(void *s, size_t n)
@@ -5,7 +17,7 @@ static void	ft_bzero(void *s, size_t n)
 	size_t			i;
 	unsigned char	*p;
 
-	p = (unsigned char *) s;
+	p = (unsigned char *)s;
 	i = 0;
 	while (i < n)
 	{

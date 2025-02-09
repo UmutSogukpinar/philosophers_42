@@ -1,125 +1,51 @@
-#include "stdio.h"
-#include "utils.h"
-#include "stdlib.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/09 14:58:47 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/09 15:17:03 by usogukpi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static t_bool	main_part_two(t_data *data);
+#include "./includes/philosophers.h"
+#include "./includes/timer.h"
+#include "./includes/utils.h"
 
-void print_greece(t_greece *greece)
-{
-    if (!greece)
-    {
-        printf("Error: greece objesi NULL!\n");
-        return;
-    }
-
-    printf("\n========== Greece Yapısı Bilgileri ==========\n");
-
-    // Genel simülasyon verileri
-    if (greece->data)
-    {
-        printf("Toplam Filozof Sayısı: %d\n", greece->data->number_phils);
-        printf("Ölme Süresi: %d ms\n", greece->data->time_to_die);
-        printf("Yeme Süresi: %d ms\n", greece->data->time_to_eat);
-        printf("Uyuma Süresi: %d ms\n", greece->data->time_to_sleep);
-        printf("Yeme Limiti: %d\n", greece->data->eat_limit);
-        printf("Başlangıç Zamanı: %llu ms\n", greece->data->start_time);
-        printf("Ölüm Bayrağı: %s\n", greece->data->death_flag ? "EVET" : "HAYIR");
-        printf("Yeme Limiti Bayrağı: %s\n", greece->data->eat_limit_flag ? "EVET" : "HAYIR");
-    }
-    else
-    {
-        printf("HATA: greece->data NULL!\n");
-    }
-
-    // Filozoflar ve durumları
-    if (greece->table)
-    {
-        printf("\n==== Filozof Bilgileri ====\n");
-        for (int i = 0; i < greece->data->number_phils; i++)
-        {
-            t_philo *philo = greece->table[i];
-            if (!philo)
-            {
-                printf("HATA: Filozof %d NULL!\n", i);
-                continue;
-            }
-
-            printf("\n[Filozof %d]\n", philo->id);
-            printf("- Yediği Yemek Sayısı: %d\n", philo->eaten_amount);
-            printf("- Son Yemek Yeme Zamanı: %llu ms\n", philo->last_meal_time);
-            printf("- Şu Anki Durumu: ");
-            
-            switch (philo->status)
-            {
-                case c_eating:
-                    printf("Yemek Yiyor 🍽️\n");
-                    break;
-                case c_thinking:
-                    printf("Düşünüyor 🤔\n");
-                    break;
-                case c_sleeping:
-                    printf("Uyuyor 😴\n");
-                    break;
-                case c_exit:
-                    printf("Çıkıyor 🚪\n");
-                    break;
-                default:
-                    printf("Bilinmeyen Durum ⚠️\n");
-            }
-
-            // Çatal bilgileri (ID + Durum)
-            printf("- Sol Çatal ID: %d, Durumu: %s\n",
-                   philo->left_fork ? philo->left_fork->id : -1,
-                   philo->left_fork ? (philo->left_fork->is_free ? "Boş 🆓" : "Dolu 🍴") : "NULL");
-
-            printf("- Sağ Çatal ID: %d, Durumu: %s\n",
-                   philo->right_fork ? philo->right_fork->id : -1,
-                   philo->right_fork ? (philo->right_fork->is_free ? "Boş 🆓" : "Dolu 🍴") : "NULL");
-        }
-    }
-    else
-    {
-        printf("HATA: greece->table NULL!\n");
-    }
-
-    printf("========================================\n\n");
-}
-
+static t_bool	main_part_two(t_philo **table, t_data *data);
 
 int	main(int argn, char **args)
 {
 	t_data	*data;
+	t_philo	**table;
 
-	if (!(check_args(argn, args)))
-		return (0);
-	data = init_data(argn, args);
+	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
-	{
-		printf("Error on \033[1;31m\"init_data()\"\033[0m function\n");
-		return (1);
-	}
-	if (main_part_two(data))
-	{
-		free(data);
-		return (0);
-	}
-	free(data);
-	return (1);
+		return (error_message("main", ALLOC_ERR));
+	if (!(init_data(argn, args, data)))
+		return (error_message("main", NULL));
+	table = init_table(data);
+	if (!table)
+		return (error_message("main", NULL));
+	set_table(table, data->number_phils);
+	if (!(main_part_two(table, data)))
+		return (error_message("main", NULL));
+	return (0);
 }
 
-static t_bool	main_part_two(t_data *data)
+static t_bool	main_part_two(t_philo **table, t_data *data)
 {
-	t_greece	*ancient_greece;
-
-	ancient_greece = init_ancient_greece(data);
-	if (!ancient_greece)
+	data->milestone = get_time();
+	if (data->number_phils == 1)
 	{
-		printf("Error on \033[1;31m\"main_part_two()\"\033[0m function\n");
-		return (c_false);
+		print_status(table[0], c_taking_forks);
+		ft_sleep(data->milestone + data->time_to_die);
+		print_status(table[0], c_death);
+		return (c_true);
 	}
-    set_table(ancient_greece->table, data);
-	print_greece(ancient_greece);
-	start_dining(ancient_greece);
-	free(ancient_greece);
+	create_threads(table, data);
+	create_joins(table, data);
 	return (c_true);
 }

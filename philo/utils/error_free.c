@@ -1,21 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   timer.h                                            :+:      :+:    :+:   */
+/*   error_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 14:51:59 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/09 14:52:00 by usogukpi         ###   ########.fr       */
+/*   Created: 2025/02/09 14:58:27 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/09 15:01:37 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIMER_H
-# define TIMER_H
+#include "../includes/philosophers.h"
+#include "stdio.h"
+#include "stdlib.h"
 
-# include "philosophers.h"
+t_status	error_message(char *func_name, char *message)
+{
+	if (message)
+		printf("%s", message);
+	printf("Error on \033[1;31m\"%s()\"\033[0m function\n", func_name);
+	return (c_exit);
+}
 
-t_ms	get_time(void);
-void	ft_sleep(t_ms waiting_time);
+void	free_table(t_philo **table)
+{
+	int	i;
 
-#endif
+	if (table)
+	{
+		i = -1;
+		while (table[++i])
+			free(table[i]);
+		free(table);
+	}
+}
