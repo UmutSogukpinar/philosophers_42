@@ -10,9 +10,9 @@ UTILS_DIR  = utils
 OBJ_DIR    = obj
 
 SRCS =	main.c \
-		$(INIT_DIR)/init.c \
+		$(INIT_DIR)/init.c $(INIT_DIR)/init_two.c \
 		$(THREAD_DIR)/create.c $(THREAD_DIR)/routine.c $(THREAD_DIR)/routine_two.c \
-		$(UTILS_DIR)/check.c $(UTILS_DIR)/error_free.c $(UTILS_DIR)/libft.c $(UTILS_DIR)/print.c $(UTILS_DIR)/time.c \
+		$(UTILS_DIR)/check.c $(UTILS_DIR)/error.c $(UTILS_DIR)/libft.c $(UTILS_DIR)/print.c $(UTILS_DIR)/time.c $(UTILS_DIR)/free.c \
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

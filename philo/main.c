@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:58:47 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/09 15:17:03 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:42:43 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	main(int argn, char **args)
 		return (error_message("main", NULL));
 	table = init_table(data);
 	if (!table)
+	{
+		free_data(data);
 		return (error_message("main", NULL));
+	}
 	set_table(table, data->number_phils);
 	if (!(main_part_two(table, data)))
 		return (error_message("main", NULL));
@@ -43,9 +46,13 @@ static t_bool	main_part_two(t_philo **table, t_data *data)
 		print_status(table[0], c_taking_forks);
 		ft_sleep(data->milestone + data->time_to_die);
 		print_status(table[0], c_death);
+		free_table(table);
+		free_data(data);
 		return (c_true);
 	}
 	create_threads(table, data);
 	create_joins(table, data);
+	free_table(table);
+	free_data(data);
 	return (c_true);
 }

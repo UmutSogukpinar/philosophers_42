@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:51:55 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:36:53 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:59:37 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define ALLOC_ERR "Allocation error occured\n"
 # define INV_ARGN "Invalid number of arguments\n"
 # define INV_ARGS "There is/are invalid argument value at least\n"
+# define MUT_INIT_ERR "pthread_mutex_init doesn't work as expected\n"
+# define MUT_DSTRY_ERR "pthread_mutex_destroy doesn't work as expected\n"
 
 # define DEATH_MSG "died\n"
 # define FORK_MSG "has taken a fork\n"

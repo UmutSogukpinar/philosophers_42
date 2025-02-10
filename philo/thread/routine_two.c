@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:54:33 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:37:57 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:41:04 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 
 void	p_eat(t_philo *philo, t_data *data)
 {
-	print_status(philo, c_taking_forks);
 	pthread_mutex_lock(&(philo->last_fork->lock));
+	print_status(philo, c_taking_forks);
 	print_status(philo, c_taking_forks);
 	print_status(philo, c_eating);
 	ft_sleep(get_time() + data->time_to_eat);
 	philo->death_time = get_time() + data->time_to_die;
 	if (data->eat_limit != -1)
 		philo->eaten_amount += 1;
-	if (philo->eaten_amount ==  philo->data->eat_limit)
+	if (philo->eaten_amount == philo->data->eat_limit)
 	{
 		pthread_mutex_lock(&(philo->data->meal_lock));
 		philo->data->number_full_phils += 1;

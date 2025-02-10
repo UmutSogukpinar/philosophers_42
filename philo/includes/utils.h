@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:52:06 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:32:34 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:32:34 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ t_bool		check_args(int argn, char **args);
 t_bool		check_satisfaction(t_data *data);
 
 void		set_table(t_philo **table, int number_of_phils);
-void		free_table(t_philo **table);
 t_status	error_message(char *func_name, char *message);
+
+void		free_table(t_philo **table);
+void		free_data(t_data *data);
 
 #endif

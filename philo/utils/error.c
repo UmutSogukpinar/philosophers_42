@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 14:53:43 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 13:09:52 by usogukpi         ###   ########.fr       */
+/*   Created: 2025/02/09 14:58:27 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/10 13:26:40 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+#include "stdio.h"
+#include "stdlib.h"
 
-void	create_threads(t_philo **table, t_data *data)
+t_status	error_message(char *func_name, char *message)
 {
-	int	i;
-
-	i = 0;
-	while (i < data->number_phils)
-	{
-		pthread_create(&(table[i]->thread), NULL, routine, table[i]);
-		i++;
-	}
-}
-
-void	create_joins(t_philo **table, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->number_phils)
-	{
-		pthread_join(table[i]->thread, NULL);
-		i++;
-	}
+	if (message)
+		printf("%s", message);
+	printf("Error on \033[1;31m\"%s()\"\033[0m function\n", func_name);
+	return (c_exit);
 }

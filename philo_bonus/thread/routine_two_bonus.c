@@ -1,37 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create.c                                           :+:      :+:    :+:   */
+/*   routine_two_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 14:53:43 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 13:09:52 by usogukpi         ###   ########.fr       */
+/*   Created: 2025/02/10 19:06:09 by usogukpi          #+#    #+#             */
+/*   Updated: 2025/02/10 19:06:10 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
-
-void	create_threads(t_philo **table, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->number_phils)
-	{
-		pthread_create(&(table[i]->thread), NULL, routine, table[i]);
-		i++;
-	}
-}
-
-void	create_joins(t_philo **table, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->number_phils)
-	{
-		pthread_join(table[i]->thread, NULL);
-		i++;
-	}
-}

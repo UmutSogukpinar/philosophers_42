@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:54:44 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:43:58 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:02:01 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static t_bool	dinner(t_philo *philo)
 			p_die(philo);
 		return (c_false);
 	}
+	if (check_satisfaction(philo->data))
+		return (c_false);
 	if ((get_time() + philo->data->time_to_sleep) > philo->death_time)
 	{
 		philo->death_time -= philo->data->time_to_eat;
@@ -54,6 +56,8 @@ static t_bool	dinner(t_philo *philo)
 	}
 	else
 		p_sleep(philo);
+	if (check_satisfaction(philo->data))
+		return (c_false);
 	p_think(philo);
 	return (c_true);
 }

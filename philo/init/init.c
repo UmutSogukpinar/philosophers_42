@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:52:59 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/09 16:31:24 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:49:26 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,6 @@
 
 static t_philo	*init_philo(int id, t_data *data);
 static t_fork	*init_fork(int id);
-
-t_bool	init_data(int argn, char **args, t_data *data)
-{
-	if (argn != 6 && argn != 5)
-	{
-		free(data);
-		return (c_false);
-	}
-	if (!(check_args(argn, args)))
-	{
-		free(data);
-		return (c_false);
-	}
-	data->eat_limit = -1;
-	data->number_phils = ft_atoi(args[1]);
-	data->time_to_die = ft_atoi(args[2]);
-	data->time_to_eat = ft_atoi(args[3]);
-	data->time_to_sleep = ft_atoi(args[4]);
-	if (argn == 6)
-		data->eat_limit = ft_atoi(args[5]);
-	data->number_full_phils = 0;
-	data->death_flag = c_false;
-	pthread_mutex_init(&(data->meal_lock), NULL);
-	pthread_mutex_init(&(data->print_lock), NULL);
-	return (c_true);
-}
 
 void	set_table(t_philo **table, int number_of_phils)
 {
@@ -105,6 +79,13 @@ static t_philo	*init_philo(int id, t_data *data)
 	new->eaten_amount = 0;
 	new->left_fork = NULL;
 	new->right_fork = init_fork(id);
+	if (new->right_fork == NULL)
+	{
+		error_message("init_philo", NULL);
+		free(new);
+		new = NULL;
+		return (NULL);
+	}
 	return (new);
 }
 
