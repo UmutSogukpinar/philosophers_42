@@ -6,13 +6,12 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:58:34 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 13:10:06 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:17:44 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
-#include "../includes/utils.h"
 #include "stdio.h"
+#include "../includes/utils.h"
 
 t_bool	check_args(int argn, char **args)
 {

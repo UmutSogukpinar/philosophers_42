@@ -6,11 +6,11 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:49:18 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 15:00:09 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:17:23 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "stdlib.h"
 #include "utils.h"
 
 static t_bool	init_data_two(t_data *data);
@@ -47,6 +47,7 @@ static t_bool	init_data_two(t_data *data)
 {
 	data->number_full_phils = 0;
 	data->death_flag = c_false;
+	data->error_flag = c_false;
 	if (pthread_mutex_init(&(data->meal_lock), NULL) != 0)
 	{
 		error_message("init_data_two", MUT_INIT_ERR);

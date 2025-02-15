@@ -6,11 +6,11 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:12:40 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 13:35:19 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:44:03 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "stdlib.h"
 #include "utils.h"
 
 static void	free_fork(t_fork *fork);

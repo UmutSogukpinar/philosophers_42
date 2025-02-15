@@ -6,11 +6,11 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:52:59 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 14:49:26 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:17:19 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "stdlib.h"
 #include "../includes/utils.h"
 
 static t_philo	*init_philo(int id, t_data *data);

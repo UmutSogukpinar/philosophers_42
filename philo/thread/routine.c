@@ -6,14 +6,12 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:54:44 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 14:02:01 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:17:35 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
 #include "../includes/timer.h"
 #include "../includes/utils.h"
-#include "stdlib.h"
 
 static t_bool	dinner(t_philo *philo);
 
@@ -23,9 +21,9 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	philo->death_time = philo->data->milestone + philo->data->time_to_die;
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 0 && philo->data->error_flag == c_false)
 		ft_sleep(get_time() + philo->data->time_to_eat);
-	while (c_true)
+	while (philo->data->error_flag == c_false)
 	{
 		if (!(dinner(philo)) || philo->data->death_flag)
 			return (NULL);

@@ -6,11 +6,10 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:58:47 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 13:42:43 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:36:09 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/philosophers.h"
 #include "./includes/timer.h"
 #include "./includes/utils.h"
 
@@ -21,20 +20,22 @@ int	main(int argn, char **args)
 	t_data	*data;
 	t_philo	**table;
 
+	if (argn != 5 && argn != 6)
+		return ((error_message("main", INV_ARGN)) - 254);
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
-		return (error_message("main", ALLOC_ERR));
+		return ((error_message("main", ALLOC_ERR)) - 254);
 	if (!(init_data(argn, args, data)))
-		return (error_message("main", NULL));
+		return (error_message("main", NULL) - 254);
 	table = init_table(data);
 	if (!table)
 	{
 		free_data(data);
-		return (error_message("main", NULL));
+		return (error_message("main", NULL) - 254);
 	}
 	set_table(table, data->number_phils);
 	if (!(main_part_two(table, data)))
-		return (error_message("main", NULL));
+		return (error_message("main", NULL) - 254);
 	return (0);
 }
 

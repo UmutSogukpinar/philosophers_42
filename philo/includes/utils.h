@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:52:06 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 13:32:34 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:09:51 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define UTILS_H
 
 # include "philosophers.h"
-# include "stdlib.h"
 
 void		print_status(t_philo *philo, t_status status);
 void		*ft_calloc(size_t num, size_t size);
