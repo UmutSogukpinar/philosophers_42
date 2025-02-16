@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:51:55 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/15 16:39:00 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:41:38 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # define ALLOC_ERR "Allocation error occured\n"
 # define INV_ARGN "Invalid number of arguments\n"
-# define INV_ARGS "There is/are invalid argument value\n"
+# define INV_ARGS "There is/are invalid argument value at least\n"
 # define MUT_INIT_ERR "pthread_mutex_init doesn't work as expected\n"
 # define MUT_DSTRY_ERR "pthread_mutex_destroy doesn't work as expected\n"
 
@@ -86,9 +86,13 @@ typedef struct s_philo
 t_philo				**init_table(t_data *data);
 t_bool				init_data(int argn, char **args, t_data *data);
 void				set_table(t_philo **table, int number_of_phils);
+
 void				create_threads(t_philo **table, t_data *data);
 void				create_joins(t_philo **table, t_data *data);
+t_bool				one_philo_exception(t_philo **table, t_data *data);
+
 void				*routine(void *arg);
+void				*routine_exception(void *arg);
 
 void				p_eat(t_philo *philo, t_data *data);
 void				p_die(t_philo *philo);

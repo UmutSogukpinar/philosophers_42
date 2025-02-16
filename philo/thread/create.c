@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:53:43 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/15 13:24:03 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/16 18:15:32 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,22 @@ void	create_joins(t_philo **table, t_data *data)
 		}
 		i++;
 	}
+}
+
+t_bool	one_philo_exception(t_philo **table, t_data *data)
+{
+	if (data->number_phils != 1)
+		return (c_true);
+	if (pthread_create(&(table[0]->thread), NULL, routine_exception,
+			table[0]) != 0)
+	{
+		data->error_flag = c_true;
+		return (c_false);
+	}
+	if (pthread_join(table[0]->thread, NULL) != 0)
+	{
+		data->error_flag = c_true;
+		return (c_false);
+	}
+	return (c_true);
 }

@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:58:37 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/10 13:10:19 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:51:53 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ t_ms	get_time(void)
 {
 	struct timeval	t;
 
-	if (gettimeofday(&t, NULL))
-		return (-1);
+	gettimeofday(&t, NULL);
 	return (((long long)t.tv_sec * 1000) + ((long long)t.tv_usec / 1000));
 }
 

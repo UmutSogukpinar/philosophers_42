@@ -2,7 +2,7 @@ NAME = philo
 
 CC = cc
 RM = rm -rf
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+CFLAGS = -Wall -Wextra -Werror -Iincludes 
 
 INIT_DIR   = init
 THREAD_DIR = thread

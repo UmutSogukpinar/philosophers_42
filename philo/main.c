@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:58:47 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/15 16:36:09 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/16 18:19:02 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,15 @@ int	main(int argn, char **args)
 static t_bool	main_part_two(t_philo **table, t_data *data)
 {
 	data->milestone = get_time();
-	if (data->number_phils == 1)
+	if (data->number_phils == 1 || data->number_phils == 3)
 	{
-		print_status(table[0], c_taking_forks);
-		ft_sleep(data->milestone + data->time_to_die);
-		print_status(table[0], c_death);
+		if (one_philo_exception(table, data) == c_false)
+		{
+			free_table(table);
+			free_data(data);
+			return (c_false);
+		}
+		// three_philo_exception
 		free_table(table);
 		free_data(data);
 		return (c_true);
