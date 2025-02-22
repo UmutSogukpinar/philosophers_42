@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:58:47 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/16 18:19:02 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/22 17:33:42 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "./includes/utils.h"
 
 static t_bool	main_part_two(t_philo **table, t_data *data);
+static t_bool	main_part_three(t_philo **table, t_data *data);
 
 int	main(int argn, char **args)
 {
@@ -42,7 +43,7 @@ int	main(int argn, char **args)
 static t_bool	main_part_two(t_philo **table, t_data *data)
 {
 	data->milestone = get_time();
-	if (data->number_phils == 1 || data->number_phils == 3)
+	if (data->number_phils == 1)
 	{
 		if (one_philo_exception(table, data) == c_false)
 		{
@@ -50,11 +51,29 @@ static t_bool	main_part_two(t_philo **table, t_data *data)
 			free_data(data);
 			return (c_false);
 		}
-		// three_philo_exception
 		free_table(table);
 		free_data(data);
 		return (c_true);
 	}
+	return (main_part_three(table, data));
+}
+
+static t_bool	main_part_three(t_philo **table, t_data *data)
+{
+	data->milestone = get_time();
+	if (data->number_phils == 3)
+	{
+		if (three_philo_exception(table, data) == c_false)
+		{
+			free_table(table);
+			free_data(data);
+			return (c_false);
+		}
+		free_table(table);
+		free_data(data);
+		return (c_true);
+	}
+	data->milestone = get_time();
 	create_threads(table, data);
 	create_joins(table, data);
 	free_table(table);

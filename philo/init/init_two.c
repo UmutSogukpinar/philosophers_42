@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:49:18 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/15 14:17:23 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/22 17:48:56 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static t_bool	init_data_two(t_data *data)
 	data->number_full_phils = 0;
 	data->death_flag = c_false;
 	data->error_flag = c_false;
+	data->turn = 0;
 	if (pthread_mutex_init(&(data->meal_lock), NULL) != 0)
 	{
 		error_message("init_data_two", MUT_INIT_ERR);

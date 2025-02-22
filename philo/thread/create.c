@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:53:43 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/16 18:15:32 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:21:44 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,33 @@ t_bool	one_philo_exception(t_philo **table, t_data *data)
 	{
 		data->error_flag = c_true;
 		return (c_false);
+	}
+	return (c_true);
+}
+
+t_bool	three_philo_exception(t_philo **table, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->number_phils)
+	{
+		if (pthread_create(&(table[i]->thread), NULL, routine_three, table[i]) != 0)
+		{
+			data->error_flag = c_true;
+			return (c_false);
+		}
+		i++;
+	}
+	i = 0;
+	while (i < data->number_phils)
+	{
+		if (pthread_join(table[i]->thread, NULL) != 0)
+		{
+			data->error_flag = c_true;
+			return (c_false);
+		}
+		i++;
 	}
 	return (c_true);
 }

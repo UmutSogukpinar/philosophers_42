@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:51:55 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/16 16:41:38 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:21:20 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				eat_limit;
 	int				number_full_phils;
+	int				turn;
 	t_ms			milestone;
 	t_bool			death_flag;
 	t_bool			error_flag;
@@ -90,8 +91,10 @@ void				set_table(t_philo **table, int number_of_phils);
 void				create_threads(t_philo **table, t_data *data);
 void				create_joins(t_philo **table, t_data *data);
 t_bool				one_philo_exception(t_philo **table, t_data *data);
+t_bool				three_philo_exception(t_philo **table, t_data *data);
 
 void				*routine(void *arg);
+void				*routine_three(void *arg);
 void				*routine_exception(void *arg);
 
 void				p_eat(t_philo *philo, t_data *data);
