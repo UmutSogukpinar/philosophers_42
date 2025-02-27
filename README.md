@@ -12,7 +12,7 @@ Clone the repository
 To compile:
 
 ```bash
-    make to compile mandatory functions.
+    make to compile the program
     then use proper parameters such that ./philo 800 200 200 5
     and evaluate the project
 ```
