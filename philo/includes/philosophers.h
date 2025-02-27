@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:51:55 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/22 18:21:20 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/23 12:30:58 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_data
 	t_bool			error_flag;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	print_lock;
-
+	pthread_mutex_t	turn_lock;
 }					t_data;
 
 typedef struct s_philo

@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:12:40 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/15 14:44:03 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/23 12:35:55 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ void	free_data(t_data *data)
 	if (data)
 	{
 		if (pthread_mutex_destroy(&(data->meal_lock)) != 0)
-			error_message("free_fork", MUT_DSTRY_ERR);
+			error_message("free_data", MUT_DSTRY_ERR);
 		if (pthread_mutex_destroy(&(data->print_lock)) != 0)
-			error_message("free_fork", MUT_DSTRY_ERR);
+			error_message("free_data", MUT_DSTRY_ERR);
+		if (pthread_mutex_destroy(&(data->turn_lock)) != 0)
+			error_message("free_data", MUT_DSTRY_ERR);
 		free(data);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:54:44 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/22 17:41:53 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:33:15 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "unistd.h"
 
 static t_bool	dinner(t_philo *philo);
+static void		taking_fork_and_die(t_philo *philo);
 
 void	*routine_exception(void *arg)
 {
@@ -55,7 +56,7 @@ static t_bool	dinner(t_philo *philo)
 	{
 		pthread_mutex_unlock(&(philo->first_fork->lock));
 		if ((get_time() + philo->data->time_to_eat) > philo->death_time)
-			p_die(philo);
+			taking_fork_and_die(philo);
 		return (c_false);
 	}
 	if (check_satisfaction(philo->data))
@@ -72,4 +73,11 @@ static t_bool	dinner(t_philo *philo)
 		return (c_false);
 	p_think(philo);
 	return (c_true);
+}
+
+static void	taking_fork_and_die(t_philo *philo)
+{
+	print_status(philo, c_taking_forks);
+	print_status(philo, c_taking_forks);
+	p_die(philo);
 }

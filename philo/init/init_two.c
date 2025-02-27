@@ -6,7 +6,7 @@
 /*   By: usogukpi <usogukpi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:49:18 by usogukpi          #+#    #+#             */
-/*   Updated: 2025/02/22 17:48:56 by usogukpi         ###   ########.fr       */
+/*   Updated: 2025/02/23 12:34:56 by usogukpi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "utils.h"
 
 static t_bool	init_data_two(t_data *data);
+static t_bool	init_data_three(t_data *data);
 
 t_bool	init_data(int argn, char **args, t_data *data)
 {
@@ -58,6 +59,20 @@ static t_bool	init_data_two(t_data *data)
 	{
 		error_message("init_data_two", MUT_INIT_ERR);
 		if (pthread_mutex_destroy(&(data->meal_lock)) != 0)
+			error_message("init_data_two", MUT_DSTRY_ERR);
+		return (c_false);
+	}
+	return (init_data_three(data));
+}
+
+static t_bool	init_data_three(t_data *data)
+{
+	if (pthread_mutex_init(&(data->turn_lock), NULL) != 0)
+	{
+		error_message("init_data_two", MUT_INIT_ERR);
+		if (pthread_mutex_destroy(&(data->meal_lock)) != 0)
+			error_message("init_data_two", MUT_DSTRY_ERR);
+		if (pthread_mutex_destroy(&(data->print_lock)) != 0)
 			error_message("init_data_two", MUT_DSTRY_ERR);
 		return (c_false);
 	}
