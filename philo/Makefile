@@ -4,9 +4,22 @@ CC = cc
 RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror -Iincludes
 
-OBJ_DIR    = obj
+# * Directories
+OBJ_DIR	= obj
+SRC_DIR	= srcs
 
-SRCS =	main.c \
+# * Subdirectories
+INIT_DIR = $(SRC_DIR)/init
+UTIL_DIR = $(SRC_DIR)/utils
+
+SRCS =	$(SRC_DIR)/main.c			\
+		$(SRC_DIR)/free.c			\
+		$(INIT_DIR)/init_table.c	\
+		$(INIT_DIR)/init_philos.c	\
+		$(UTIL_DIR)/checker.c		\
+		$(UTIL_DIR)/display.c		\
+		$(UTIL_DIR)/libft_utils.c	\
+		$(UTIL_DIR)/utils.c			\
 		
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
