@@ -10,10 +10,16 @@ SRC_DIR	= srcs
 
 # * Subdirectories
 INIT_DIR = $(SRC_DIR)/init
+DIN_DIR = $(SRC_DIR)/dining
+LOCK_DIR = $(SRC_DIR)/locks
 UTIL_DIR = $(SRC_DIR)/utils
 
 SRCS =	$(SRC_DIR)/main.c			\
 		$(SRC_DIR)/free.c			\
+		$(DIN_DIR)/dining.c			\
+		$(LOCK_DIR)/lock.c			\
+		$(LOCK_DIR)/get_locks.c		\
+		$(LOCK_DIR)/set_locks.c		\
 		$(INIT_DIR)/init_table.c	\
 		$(INIT_DIR)/init_philos.c	\
 		$(UTIL_DIR)/checker.c		\

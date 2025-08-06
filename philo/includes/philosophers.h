@@ -11,6 +11,8 @@ t_table	*init_table(char **argv, int argc);
 
 t_bool	init_philos(t_philo **philos, char **argv, int argc);
 
+t_bool	init_dining(t_table *table);
+
 void	set_left_forks(t_philo *philos);
 void	set_fork_priority(t_philo *philos);
 

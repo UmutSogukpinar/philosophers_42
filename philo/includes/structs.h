@@ -24,23 +24,24 @@ typedef enum e_bool
 
 typedef enum e_status
 {
+	PICKING_UP_FORK,
 	EATING,
 	SLEEPING,
 	THINKING,
-	DEAD,
+	DEAD
 }						t_status;
 
 typedef struct s_locks
 {
-	t_mutex	full;
-	t_mutex	print;
-	t_mutex	death;
-	t_mutex	error;
-	t_bool	error_init;
-	t_bool	print_init;
-	t_bool	full_init;
-	t_bool	death_init;
-}				t_locks;
+	t_mutex				full;
+	t_mutex				print;
+	t_mutex				death;
+	t_mutex				error;
+	t_bool				error_init;
+	t_bool				print_init;
+	t_bool				full_init;
+	t_bool				death_init;
+}						t_locks;
 
 typedef struct s_custom_data
 {
