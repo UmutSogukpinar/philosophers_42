@@ -17,6 +17,9 @@ UTIL_DIR = $(SRC_DIR)/utils
 SRCS =	$(SRC_DIR)/main.c			\
 		$(SRC_DIR)/free.c			\
 		$(DIN_DIR)/dining.c			\
+		$(DIN_DIR)/eating.c			\
+		$(DIN_DIR)/routine.c		\
+		$(DIN_DIR)/monitor.c		\
 		$(LOCK_DIR)/lock.c			\
 		$(LOCK_DIR)/get_locks.c		\
 		$(LOCK_DIR)/set_locks.c		\
@@ -26,6 +29,7 @@ SRCS =	$(SRC_DIR)/main.c			\
 		$(UTIL_DIR)/display.c		\
 		$(UTIL_DIR)/libft_utils.c	\
 		$(UTIL_DIR)/utils.c			\
+		$(UTIL_DIR)/time.c
 		
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)

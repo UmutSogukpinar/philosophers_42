@@ -43,6 +43,8 @@ typedef struct s_locks
 	t_mutex				print;
 	t_mutex				death;
 	t_mutex				error;
+	t_mutex				meal;
+	t_bool				meal_init;
 	t_bool				error_init;
 	t_bool				print_init;
 	t_bool				full_init;
@@ -88,8 +90,8 @@ typedef struct s_table
 	t_philo				*philos;
 	pthread_t			monitor;
 	t_locks				*locks;
+	t_custom_data		data;
 	t_shared_data		*shared_data;
-	size_t				number_of_phils;
 	t_ms				milestone;
 }						t_table;
 

@@ -1,4 +1,5 @@
 #include "philosophers.h"
+#include "unistd.h"
 
 static void		*dining(void *arg);
 static void		join_philo_threads(t_table *table);
@@ -9,8 +10,9 @@ t_bool	init_dining(t_table *table)
 {
 	size_t	i;
 
-	// table->milestone = get_timestamp(); // TODO: implement later
-	while (i < table->number_of_phils)
+	i = 0;
+	table->milestone = get_timestamp(table->shared_data, table->locks);
+	while (i < table->data.number_of_phils)
 	{
 		table->philos[i].data.last_meal_time = table->milestone;
 		table->philos[i].data.milestone = table->milestone;
@@ -27,7 +29,7 @@ static t_bool	start_philo_threads(t_table *table)
 	size_t	i;
 
 	i = 0;
-	while (i < table->number_of_phils)
+	while (i < table->data.number_of_phils)
 	{
 		if (pthread_create(&table->philos[i].thread, NULL, &dining,
 				&table->philos[i]) != SUCCESS)
@@ -51,7 +53,7 @@ static void	join_philo_threads(t_table *table)
 	size_t	i;
 
 	i = 0;
-	while (i < table->number_of_phils)
+	while (i < table->data.number_of_phils)
 	{
 		pthread_join(table->philos[i].thread, NULL);
 		i++;
@@ -66,6 +68,8 @@ static void	*dining(void *arg)
 	phil = (t_philo *)arg;
 	if (get_error_flag(phil->shared_data, phil->locks))
 		return (NULL);
+	if (phil->id % 2 == 0)
+		usleep(100);
 	start_routine(phil);
 	return (NULL);
 }

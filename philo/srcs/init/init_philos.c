@@ -1,7 +1,6 @@
 #include "philosophers.h"
 #include "string.h"
 
-static void		init_custom_data(t_custom_data *data, char **argv, int argc);
 static t_bool	init_philo(t_philo *philo, char **argv, int argc);
 
 t_bool	init_philos(t_philo **philos, char **argv, int argc)
@@ -40,7 +39,7 @@ static t_bool	init_philo(t_philo *philo, char **argv, int argc)
 }
 
 
-static void	init_custom_data(t_custom_data *data, char **argv, int argc)
+void	init_custom_data(t_custom_data *data, char **argv, int argc)
 {
 	data->number_eat = 0;
 	data->lifetime = ft_atoui(argv[2]);

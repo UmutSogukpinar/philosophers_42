@@ -13,6 +13,7 @@ t_bool	init_philos(t_philo **philos, char **argv, int argc);
 
 t_bool	init_dining(t_table *table);
 
+void	init_custom_data(t_custom_data *data, char **argv, int argc);
 void	set_left_forks(t_philo *philos);
 void	set_fork_priority(t_philo *philos);
 
@@ -45,8 +46,8 @@ void	ft_putendl(char *str, int fd);
 t_bool	display_status(t_philo *philo, t_status status);
 t_bool	display_err_msg(char *msg);
 
-void	elapse_time(t_ms duration);
 t_ms	get_timestamp(t_shared_data *data, t_locks *locks);
+void	elapse_time(t_shared_data *data, t_locks *locks, t_ms duration);
 
 // ! For Debug
 void	display_table(const t_table *table);

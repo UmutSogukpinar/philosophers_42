@@ -2,9 +2,12 @@
 
 static t_bool	pick_up_fork(t_philo *philo);
 static void		put_down_fork(t_philo *philo);
+static void	check_satisfaction(t_philo *philo);
 
 t_bool	eating(t_philo *philo)
 {
+	t_ms	*meal_time_ref;
+
 	if (!pick_up_fork(philo))
 		return (FALSE);
 	if (!display_status(philo, EATING))
@@ -12,14 +15,17 @@ t_bool	eating(t_philo *philo)
 		put_down_fork(philo);
 		return (FALSE);
 	}
-	elapse_time(philo->data.meal_time);
-	display_status(philo, EATING);
-	philo->data.last_meal_time = get_timestamp(philo->shared_data,
-			philo->locks);
+	meal_time_ref = &philo->data.last_meal_time;
+	pthread_mutex_lock(&philo->locks->meal);
+	*meal_time_ref = get_timestamp(philo->shared_data, philo->locks);
 	philo->data.number_eat += 1;
+	pthread_mutex_unlock(&philo->locks->meal);
+	check_satisfaction(philo);
+	elapse_time(philo->shared_data, philo->locks, philo->data.meal_time);
 	put_down_fork(philo);
 	return (TRUE);
 }
+
 
 static t_bool	pick_up_fork(t_philo *philo)
 {
@@ -39,3 +45,16 @@ static void	put_down_fork(t_philo *philo)
 	unlock_the_mutex(philo->last_fork);
 	unlock_the_mutex(philo->first_fork);
 }
+
+static void	check_satisfaction(t_philo *philo)
+{
+	if (philo->data.eat_limit == -1)
+		return ;
+	if (philo->data.number_eat >= philo->data.eat_limit)
+	{
+		pthread_mutex_lock(&philo->locks->full);
+		philo->is_full = TRUE;
+		pthread_mutex_unlock(&philo->locks->full);
+	}
+}
+

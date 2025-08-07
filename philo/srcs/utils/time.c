@@ -1,5 +1,6 @@
 #include "philosophers.h"
 #include <sys/time.h>
+#include "unistd.h"
 
 t_ms	get_timestamp(t_shared_data *data, t_locks *locks)
 {
@@ -16,15 +17,15 @@ t_ms	get_timestamp(t_shared_data *data, t_locks *locks)
 	return ((t_ms)(now.tv_sec * 1000 + now.tv_usec / 1000));
 }
 
-void	elapse_time(t_ms duration)
+void	elapse_time(t_shared_data *data, t_locks *locks, t_ms duration)
 {
 	t_ms start;
 	t_ms now;
 
-	start = get_timestamp_ms();
+	start = get_timestamp(data, locks);
 	while (TRUE)
 	{
-		now = get_timestamp_ms();
+		now = get_timestamp(data, locks);
 		if ((now - start) >= duration)
 			break ;
 		usleep(100);

@@ -1,6 +1,7 @@
 #include "philosophers.h"
 #include "stdlib.h"
 
+static void	free_mutex(pthread_mutex_t *mtx, t_bool *is_init);
 static void	free_locks(t_locks *locks);
 static void	free_philos(t_philo	*philos);
 
@@ -16,33 +17,26 @@ void	free_table(t_table *table)
 	free(table);
 }
 
-void	free_locks(t_locks *locks)
+static void	free_locks(t_locks *locks)
 {
 	if (!locks)
 		return ;
-	if (locks->death_init)
-	{
-		if (pthread_mutex_destroy(&locks->death) != SUCCESS)
-			display_err_msg(MTX_DSTRY_ERR);
-	}
-	if (locks->full_init)
-	{
-		if (pthread_mutex_destroy(&locks->full) != SUCCESS)
-			display_err_msg(MTX_DSTRY_ERR);
-	}
-	if (locks->print_init)
-	{
-		if (pthread_mutex_destroy(&locks->print) != SUCCESS)
-			display_err_msg(MTX_DSTRY_ERR);
-	}
-	if (locks->error_init)
-	{
-		if (pthread_mutex_destroy(&locks->error) != SUCCESS)
-			display_err_msg(MTX_DSTRY_ERR);
-	}
+	free_mutex(&locks->meal, &locks->meal_init);
+	free_mutex(&locks->full, &locks->full_init);
+	free_mutex(&locks->death, &locks->death_init);
+	free_mutex(&locks->print, &locks->print_init);
+	free_mutex(&locks->error, &locks->error_init);
 	free(locks);
 }
 
+static void	free_mutex(pthread_mutex_t *mtx, t_bool *is_init)
+{
+	if (*is_init)
+	{
+		if (pthread_mutex_destroy(mtx) != SUCCESS)
+			display_err_msg(MTX_DSTRY_ERR);
+	}
+}
 
 static void	free_philos(t_philo	*philos)
 {

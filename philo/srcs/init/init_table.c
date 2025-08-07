@@ -4,13 +4,15 @@ static t_bool	init_locks(t_locks **locks);
 static t_bool	init_shared_data(t_shared_data **data);
 static void		set_common_data(t_philo *philos, t_shared_data *data,
 					t_locks *locks);
+static t_bool	init_mutex(pthread_mutex_t *mtx, t_bool *init_flag);
 
 t_table	*init_table(char **argv, int argc)
 {
 	t_table	*table;
 
 	table = ft_calloc(1, sizeof(t_table));
-	table->number_of_phils = ft_atoui(argv[1]);
+	table->data.number_of_phils = ft_atoui(argv[1]);
+	init_custom_data(&table->data, argv, argc);
 	if (!table)
 	{
 		display_err_msg(ALLOC_ERR);
@@ -49,29 +51,29 @@ static t_bool	init_locks(t_locks **locks)
 	t_locks	*dummy;
 
 	*locks = ft_calloc(1, sizeof(t_locks));
-	dummy = *locks;
-	if (!dummy)
+	if (!*locks)
 		return (display_err_msg(ALLOC_ERR));
-	if (pthread_mutex_init(&dummy->death, NULL) == SUCCESS)
-		dummy->death_init = TRUE;
-	else
+	dummy = *locks;
+	if (!init_mutex(&dummy->death, &dummy->death_init))
 		return (display_err_msg(MTX_INIT_ERR));
-	if (pthread_mutex_init(&dummy->full, NULL) == SUCCESS)
-		dummy->full_init = TRUE;
-	else
+	if (!init_mutex(&dummy->full, &dummy->full_init))
 		return (display_err_msg(MTX_INIT_ERR));
-	if (pthread_mutex_init(&dummy->print, NULL) == SUCCESS)
-		dummy->print_init = TRUE;
-	else
+	if (!init_mutex(&dummy->print, &dummy->print_init))
 		return (display_err_msg(MTX_INIT_ERR));
-	if (pthread_mutex_init(&dummy->error, NULL) == SUCCESS)
-		dummy->error_init = TRUE;
-	else
+	if (!init_mutex(&dummy->error, &dummy->error_init))
+		return (display_err_msg(MTX_INIT_ERR));
+	if (!init_mutex(&dummy->meal, &dummy->meal_init))
 		return (display_err_msg(MTX_INIT_ERR));
 	return (TRUE);
 }
 
-
+static t_bool	init_mutex(pthread_mutex_t *mtx, t_bool *init_flag)
+{
+	if (pthread_mutex_init(mtx, NULL) != SUCCESS)
+		return (FALSE);
+	*init_flag = TRUE;
+	return (TRUE);
+}
 
 static t_bool	init_shared_data(t_shared_data **data)
 {

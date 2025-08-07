@@ -21,25 +21,22 @@ t_bool	display_status(t_philo *philo, t_status status)
 	lock_the_mutex(&philo->locks->print);
 	current_time = get_timestamp(philo->shared_data, philo->locks);
 	if (get_error_flag(philo->shared_data, philo->locks)
-		|| get_death_flag(philo->shared_data, philo->locks))
+		|| get_death_flag(philo->shared_data, philo->locks)
+		|| get_full_flag(philo->shared_data, philo->locks))
 	{
 		unlock_the_mutex(&philo->locks->print);
 		return (FALSE);
 	}
 	if (status == DEAD)
 		set_death_flag(philo->shared_data, philo->locks, TRUE);
-	printf("%llu %d %s\n",
-		current_time,
-		philo->id,
-		get_status_msg(status));
+	printf("%lu %d %s\n", current_time - philo->data.milestone, philo->id,
+			get_status_msg(status));
 	unlock_the_mutex(&philo->locks->print);
 	return (TRUE);
 }
 
 static const char	*get_status_msg(t_status status)
 {
-	if (status == PICKING_UP_FORK)
-		return (FORK_MSG);
 	if (status == EATING)
 		return (EAT_MSG);
 	if (status == SLEEPING)
@@ -48,9 +45,10 @@ static const char	*get_status_msg(t_status status)
 		return (THINK_MSG);
 	if (status == DEAD)
 		return (DEATH_MSG);
+	if (status == PICKING_UP_FORK)
+		return (FORK_MSG);
 	return ("unknown");
 }
-
 
 // ! ======================== Debug ========================
 
@@ -84,13 +82,17 @@ static void	display_philo(const t_philo *philo)
 		printf("Shared Flags   : NULL\n");
 	printf("Fork Pointers  :\n");
 	printf("    Left Fork   : %s (addr: %p)\n",
-			philo->left_fork ? "OK" : "NULL", (void *)philo->left_fork);
+			philo->left_fork ? "OK" : "NULL",
+			(void *)philo->left_fork);
 	printf("    Right Fork  : %s (addr: %p)\n",
-			philo->right_fork ? "OK" : "NULL", (void *)philo->right_fork);
+			philo->right_fork ? "OK" : "NULL",
+			(void *)philo->right_fork);
 	printf("    First Fork  : %s (addr: %p)\n",
-			philo->first_fork ? "OK" : "NULL", (void *)philo->first_fork);
+			philo->first_fork ? "OK" : "NULL",
+			(void *)philo->first_fork);
 	printf("    Last Fork   : %s (addr: %p)\n",
-			philo->last_fork ? "OK" : "NULL", (void *)philo->last_fork);
+			philo->last_fork ? "OK" : "NULL",
+			(void *)philo->last_fork);
 	printf("==========================\n");
 }
 
@@ -115,7 +117,7 @@ void	display_table(const t_table *table)
 		return ;
 	}
 	printf("\n=========== TABLE STATUS ===========\n");
-	printf("Number of Philosophers : %zu\n", table->number_of_phils);
+	printf("Number of Philosophers : %zu\n", table->data.number_of_phils);
 	// Shared Data
 	if (table->shared_data)
 	{
@@ -148,6 +150,6 @@ void	display_table(const t_table *table)
 	}
 	printf("Monitor Thread ID       : %lu\n", (unsigned long)table->monitor);
 	printf("\n------ PHILOSOPHER LIST ------\n");
-	display_philo_list(table->philos, table->number_of_phils);
+	display_philo_list(table->philos, table->data.number_of_phils);
 	printf("================================\n\n");
 }
