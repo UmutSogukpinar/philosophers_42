@@ -11,7 +11,6 @@ t_table	*init_table(char **argv, int argc)
 
 	table = ft_calloc(1, sizeof(t_table));
 	table->number_of_phils = ft_atoui(argv[1]);
-	table->amount_hungery_phil = table->number_of_phils;
 	if (!table)
 	{
 		display_err_msg(ALLOC_ERR);

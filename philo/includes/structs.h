@@ -13,6 +13,12 @@
 #  define MAX_INT 2147483647
 # endif
 
+# define FORK_MSG	"has taken a fork"
+# define EAT_MSG	"is eating"
+# define SLEEP_MSG	"is sleeping"
+# define THINK_MSG	"is thinking"
+# define DEATH_MSG	"died"
+
 typedef uint64_t		t_ms;
 typedef pthread_mutex_t	t_mutex;
 
@@ -51,7 +57,8 @@ typedef struct s_custom_data
 	t_ms				lifetime;
 	t_ms				meal_time;
 	t_ms				sleep_time;
-	t_ms				last_meal_time;
+	t_ms				last_meal_time;	
+	t_ms				milestone;
 }						t_custom_data;
 
 typedef struct s_shared_data
@@ -66,6 +73,7 @@ typedef struct s_philo
 	int					id;
 	pthread_t			thread;
 	t_bool				is_alive;
+	t_bool				is_full;
 	t_mutex				*left_fork;
 	t_mutex				*right_fork;
 	t_mutex				*first_fork;
@@ -82,7 +90,7 @@ typedef struct s_table
 	t_locks				*locks;
 	t_shared_data		*shared_data;
 	size_t				number_of_phils;
-	size_t				amount_hungery_phil;
+	t_ms				milestone;
 }						t_table;
 
 #endif

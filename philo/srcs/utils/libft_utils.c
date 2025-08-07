@@ -55,3 +55,19 @@ size_t	ft_atoui(const char *str)
 	return (result * sign);
 }
 
+void	ft_putendl(char *str, int fd)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	write(fd, str, len);
+	write(fd, NEWLINE, 1);
+}
+
+void	ft_putstr(char *str, int fd)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	write(fd, str, len);
+}

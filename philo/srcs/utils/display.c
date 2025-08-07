@@ -2,22 +2,7 @@
 #include "stdio.h" // ! For debug
 #include "unistd.h"
 
-void	ft_putendl(char *str, int fd)
-{
-	size_t	len;
-
-	len = ft_strlen(str);
-	write(fd, str, len);
-	write(fd, NEWLINE, 1);
-}
-
-void	ft_putstr(char *str, int fd)
-{
-	size_t	len;
-
-	len = ft_strlen(str);
-	write(fd, str, len);
-}
+static const char	*get_status_msg(t_status status);
 
 t_bool	display_err_msg(char *msg)
 {
@@ -31,10 +16,41 @@ t_bool	display_err_msg(char *msg)
 
 t_bool	display_status(t_philo *philo, t_status status)
 {
+	t_ms	current_time;
+
+	lock_the_mutex(&philo->locks->print);
+	current_time = get_timestamp(philo->shared_data, philo->locks);
 	if (get_error_flag(philo->shared_data, philo->locks)
-		|| get_error_flag(philo->shared_data, philo->locks))
+		|| get_death_flag(philo->shared_data, philo->locks))
+	{
+		unlock_the_mutex(&philo->locks->print);
 		return (FALSE);
+	}
+	if (status == DEAD)
+		set_death_flag(philo->shared_data, philo->locks, TRUE);
+	printf("%llu %d %s\n",
+		current_time,
+		philo->id,
+		get_status_msg(status));
+	unlock_the_mutex(&philo->locks->print);
+	return (TRUE);
 }
+
+static const char	*get_status_msg(t_status status)
+{
+	if (status == PICKING_UP_FORK)
+		return (FORK_MSG);
+	if (status == EATING)
+		return (EAT_MSG);
+	if (status == SLEEPING)
+		return (SLEEP_MSG);
+	if (status == THINKING)
+		return (THINK_MSG);
+	if (status == DEAD)
+		return (DEATH_MSG);
+	return ("unknown");
+}
+
 
 // ! ======================== Debug ========================
 
@@ -100,7 +116,6 @@ void	display_table(const t_table *table)
 	}
 	printf("\n=========== TABLE STATUS ===========\n");
 	printf("Number of Philosophers : %zu\n", table->number_of_phils);
-	printf("Amount Hungry Phil     : %zu\n", table->amount_hungery_phil);
 	// Shared Data
 	if (table->shared_data)
 	{

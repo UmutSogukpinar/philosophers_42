@@ -7,6 +7,15 @@ static void		clean_broken_table(t_philo *philos, size_t index);
 
 t_bool	init_dining(t_table *table)
 {
+	size_t	i;
+
+	// table->milestone = get_timestamp(); // TODO: implement later
+	while (i < table->number_of_phils)
+	{
+		table->philos[i].data.last_meal_time = table->milestone;
+		table->philos[i].data.milestone = table->milestone;
+		i++;
+	}
 	if (!start_philo_threads(table))
 		return (FALSE);
 	join_philo_threads(table);
@@ -29,7 +38,7 @@ static t_bool	start_philo_threads(t_table *table)
 		}
 		i++;
 	}
-	if (pthread_create(&table->monitor, NULL, &dining, table) != SUCCESS)
+	if (pthread_create(&table->monitor, NULL, &monitor, table) != SUCCESS)
 	{
 		set_error_flag(table->shared_data, table->locks, TRUE);
 		return (display_err_msg(PHTREAD_CRT_ERR));
@@ -57,8 +66,7 @@ static void	*dining(void *arg)
 	phil = (t_philo *)arg;
 	if (get_error_flag(phil->shared_data, phil->locks))
 		return (NULL);
-	// phil->data.last_meal_time = get_timestamp(); // TODO: Implement later !!!
-	start_dining(phil);
+	start_routine(phil);
 	return (NULL);
 }
 

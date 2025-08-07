@@ -17,4 +17,6 @@
 
 # define PHTREAD_CRT_ERR "Pthread create failed!"
 
+# define GETTIMEOFDAY_ERR "getttimeofday() does not work as expected!"
+
 #endif
