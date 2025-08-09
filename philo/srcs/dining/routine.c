@@ -1,4 +1,6 @@
 #include "philosophers.h"
+#include "unistd.h"
+
 
 static t_bool	sleeping(t_philo *philo);
 static t_bool	thinking(t_philo *philo);
@@ -18,7 +20,7 @@ void	start_routine(t_philo *philo)
 
 static t_bool	sleeping(t_philo *philo)
 {
-	if (!display_status(philo, SLEEPING))
+	if (!display_status(philo, SLEEPING)) 
 		return (FALSE);
 	elapse_time(philo->shared_data, philo->locks, philo->data.sleep_time);
 	return (TRUE);
@@ -26,5 +28,6 @@ static t_bool	sleeping(t_philo *philo)
 
 static t_bool	thinking(t_philo *philo)
 {
+	usleep(200);
 	return (display_status(philo, THINKING));
 }

@@ -92,7 +92,6 @@ typedef struct s_table
 	t_locks				*locks;
 	t_custom_data		data;
 	t_shared_data		*shared_data;
-	t_ms				milestone;
 }						t_table;
 
 #endif

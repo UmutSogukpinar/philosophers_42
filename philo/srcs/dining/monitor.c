@@ -25,7 +25,6 @@ void	*monitor(void *arg)
 		{
 			break ;
 		}
-		usleep(100);
 	}
 	return (NULL);
 }

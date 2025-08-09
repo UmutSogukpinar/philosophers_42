@@ -11,11 +11,11 @@ t_bool	init_dining(t_table *table)
 	size_t	i;
 
 	i = 0;
-	table->milestone = get_timestamp(table->shared_data, table->locks);
+	table->data.milestone = get_timestamp(table->shared_data, table->locks);
 	while (i < table->data.number_of_phils)
 	{
-		table->philos[i].data.last_meal_time = table->milestone;
-		table->philos[i].data.milestone = table->milestone;
+		table->philos[i].data.last_meal_time = table->data.milestone;
+		table->philos[i].data.milestone = table->data.milestone;
 		i++;
 	}
 	if (!start_philo_threads(table))
