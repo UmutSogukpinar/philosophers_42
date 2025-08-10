@@ -9,9 +9,16 @@
 
 // ===================== Free Function(s) =====================
 
+void	free_table(t_table *table);
+
 // ===================== Checker Function(s) =====================
 
 t_bool	check_args(int argc, char **argv);
+
+t_bool  init_table(t_table *table, int argc, char **argv);
+t_bool	init_sems(t_table *table);
+void    unlink_all_sems(void);
+void    close_all_sems(t_semaphores *s);
 
 // ======================= Utils =======================
 
@@ -22,14 +29,13 @@ size_t	ft_atoui(const char *str);
 t_bool	ft_isspace(char c);
 t_bool	ft_isdigit(char c);
 
-void	ft_putstr(char *str, int fd);
 void	ft_putendl(char *str, int fd);
 
-t_bool	display_status(t_philo *philo, t_status status);
 t_bool	display_err_msg(char *msg);
 
 
 // ! For Debug
 
+void	display_table(const t_table *table);
 
 #endif

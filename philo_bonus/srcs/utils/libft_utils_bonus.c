@@ -1,4 +1,4 @@
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 #include "stdlib.h"
 #include "unistd.h"
 
@@ -63,12 +63,4 @@ void	ft_putendl(char *str, int fd)
 	len = ft_strlen(str);
 	write(fd, str, len);
 	write(fd, NEWLINE, 1);
-}
-
-void	ft_putstr(char *str, int fd)
-{
-	size_t	len;
-
-	len = ft_strlen(str);
-	write(fd, str, len);
 }

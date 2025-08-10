@@ -1,13 +1,13 @@
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 #include <sys/time.h>
 #include "unistd.h"
 
-t_ms	get_timestamp(void)
-{
+// t_ms	get_timestamp(void)
+// {
 
-}
+// }
 
-void	elapse_time(t_ms duration)
-{
+// void	elapse_time(t_ms duration)
+// {
 
-}
+// }

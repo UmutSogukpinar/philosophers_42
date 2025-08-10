@@ -70,25 +70,23 @@ typedef struct s_semaphores
 	sem_t	*death;   /* death/all-full event: initial = 0 */
 	sem_t	*full;    /* count full philosophers: initial = 0 */
 	sem_t	*limit;   /* admission tokens: initial = floor(N/2) (or 1 if N==1) */
-	sem_t	*start;   /* start barrier: parent posts N once all children forked */
 }	t_semaphores;
 
-/* ========================= Child-local process state ========================= */
-/* Lives ONLY in the child address space (no globals, no shared memory) */
+
 typedef struct s_philo
 {
 	int				id;            /* 1..N (stable) */
 	int				meals;         /* eaten count */
 	t_ms			last_meal_ts;  /* last eat timestamp (ms) */
-	t_data			data;           /* local copy of config */
+	t_data			data;           /* local copy of data */
 	t_semaphores	sems;          /* handles to named semaphores */
 }	t_philo;
 
 /* ========================= Parent table (master context) ========================= */
-/* Lives ONLY in parent; children get only their own pid and cfg copy */
+
 typedef struct s_table
 {
-	t_data			data;     /* canonical config */
+	t_data			data;     /* canonical data */
 	t_semaphores	sems;    /* created by parent */
 	pid_t			*pids;   /* size = N, allocated in parent */
 }	t_table;

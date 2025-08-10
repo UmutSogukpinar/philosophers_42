@@ -12,8 +12,9 @@
 # define INV_ARGC "Invalid number of argument!"
 # define INV_ARGV "Invalid argument value!"
 
-# define MTX_INIT_ERR "Mutex initialization failed!"
-# define MTX_DSTRY_ERR "Mutex destroy failed!"
+# define FORK_ERR "fork() failed!"
+
+# define SEM_OPEN_ERR "sem_open() failed!"
 
 # define PHTREAD_CRT_ERR "Pthread create failed!"
 

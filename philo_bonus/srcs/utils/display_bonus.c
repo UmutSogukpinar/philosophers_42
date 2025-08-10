@@ -1,8 +1,8 @@
-#include "philosophers.h"
+#include "philosophers_bonus.h"
 #include "stdio.h" // ! For debug
 #include "unistd.h"
 
-static const char	*get_status_msg(t_status status);
+// static const char	*get_status_msg(t_status status);
 
 t_bool	display_err_msg(char *msg)
 {
@@ -14,38 +14,51 @@ t_bool	display_err_msg(char *msg)
 	return (FALSE);
 }
 
-t_bool	display_status(t_philo *philo, t_status status)
-{
-	t_ms	current_time;
+// static const char	*get_status_msg(t_status status)
+// {
+// 	if (status == EATING)
+// 		return (EAT_MSG);
+// 	if (status == SLEEPING)
+// 		return (SLEEP_MSG);
+// 	if (status == THINKING)
+// 		return (THINK_MSG);
+// 	if (status == DEAD)
+// 		return (DEATH_MSG);
+// 	if (status == PICKING_UP_FORK)
+// 		return (FORK_MSG);
+// 	return ("unknown");
+// }
 
-	lock_the_mutex(&philo->locks->print);
-	current_time = get_timestamp(philo->shared_data, philo->locks);
-	if (get_error_flag(philo->shared_data, philo->locks)
-		|| get_death_flag(philo->shared_data, philo->locks)
-		|| get_full_flag(philo->shared_data, philo->locks))
+// ! FOR DEBUG
+
+/* Display table data for debugging purposes */
+void	display_table(const t_table *table)
+{
+	size_t	i;
+
+	if (!table)
+		return ;
+
+	printf("==== Table Debug Info ====\n");
+	printf("Number of philosophers: %zu\n", table->data.number_of_phils);
+	printf("Time to die: %llu ms\n", (unsigned long long)table->data.time_to_die);
+	printf("Time to eat: %llu ms\n", (unsigned long long)table->data.time_to_eat);
+	printf("Time to sleep: %llu ms\n", (unsigned long long)table->data.time_to_sleep);
+	printf("Eat limit: %d\n", table->data.eat_limit);
+
+	printf("PIDs: ");
+	if (!table->pids)
 	{
-		unlock_the_mutex(&philo->locks->print);
-		return (FALSE);
+		printf("(null)\n");
+		return ;
 	}
-	if (status == DEAD)
-		set_death_flag(philo->shared_data, philo->locks, TRUE);
-	printf("%lu %d %s\n", current_time - philo->data.milestone, philo->id,
-			get_status_msg(status));
-	unlock_the_mutex(&philo->locks->print);
-	return (TRUE);
-}
-
-static const char	*get_status_msg(t_status status)
-{
-	if (status == EATING)
-		return (EAT_MSG);
-	if (status == SLEEPING)
-		return (SLEEP_MSG);
-	if (status == THINKING)
-		return (THINK_MSG);
-	if (status == DEAD)
-		return (DEATH_MSG);
-	if (status == PICKING_UP_FORK)
-		return (FORK_MSG);
-	return ("unknown");
+	i = 0;
+	while (i < table->data.number_of_phils)
+	{
+		printf("%d", table->pids[i]);
+		if (i + 1 < table->data.number_of_phils)
+			printf(", ");
+		i++;
+	}
+	printf("\n==========================\n");
 }
