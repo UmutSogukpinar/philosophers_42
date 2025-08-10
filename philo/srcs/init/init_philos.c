@@ -28,7 +28,6 @@ t_bool	init_philos(t_philo **philos, char **argv, int argc)
 static t_bool	init_philo(t_philo *philo, char **argv, int argc)
 {
 	memset(philo, 0, sizeof(t_philo));
-	philo->is_alive = TRUE;
 	init_custom_data(&philo->data, argv, argc);
 	philo->right_fork = ft_calloc(1, sizeof(t_mutex));
 	if (!philo->right_fork)

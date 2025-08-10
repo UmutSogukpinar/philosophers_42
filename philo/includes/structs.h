@@ -74,7 +74,6 @@ typedef struct s_philo
 {
 	int					id;
 	pthread_t			thread;
-	t_bool				is_alive;
 	t_bool				is_full;
 	t_mutex				*left_fork;
 	t_mutex				*right_fork;

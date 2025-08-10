@@ -60,7 +60,6 @@ static void	display_philo(const t_philo *philo)
 		return ;
 	}
 	printf("===== Philosopher %d =====\n", philo->id);
-	printf("Alive          : %s\n", philo->is_alive ? "TRUE" : "FALSE");
 	printf("Eat Limit      : %d\n", philo->data.eat_limit);
 	printf("Eat Count      : %d\n", philo->data.number_eat);
 	printf("Number of Phils: %zu\n", philo->data.number_of_phils);
