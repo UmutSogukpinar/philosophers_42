@@ -25,7 +25,7 @@ t_bool	init_dining(t_table *table)
 			return (FALSE);
 		}
 		if (pid == 0)
-			run_child(table->data, (int)(i + 1));
+			exec_child(table->data, table->pids, (int)(i + 1));
 		table->pids[i] = pid;
 		i++;
 	}
@@ -38,21 +38,7 @@ t_bool	init_dining(t_table *table)
 /* Wait completion policy: FULL N times or one DEATH. */
 static void	wait_completion(t_table *t)
 {
-	size_t	i;
-	size_t	n;
-
-	n = t->data.number_of_phils;
-	if (t->data.eat_limit > 0)
-	{
-		i = 0;
-		while (i < n)
-		{
-			sem_wait(t->sems.full);
-			i++;
-		}
-	}
-	else
-		sem_wait(t->sems.death);
+	sem_wait(t->sems.finish);
 }
 
 /* Send SIGTERM to all children (pids[0..count-1]) */
